@@ -6,6 +6,7 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
+
   saveRecipe(recipe) {
     this.favoriteRecipes.push(recipe);
   }
@@ -18,10 +19,12 @@ class User {
   decideToCook(recipe) {
     this.recipesToCook.push(recipe);
   }
-  filterRecipes(type) {
-    return this.favoriteRecipes.filter(recipe => recipe.type.includes(type));
+
+  filterRecipesByTag(tag) {
+    return this.favoriteRecipes.filter(recipe => recipe.tags.includes(tag));
   }
-  searchForRecipe(keyword) {
+
+  searchForRecipeByIngredient(keyword) {
     return this.favoriteRecipes.filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.includes(keyword));
   }
 }
