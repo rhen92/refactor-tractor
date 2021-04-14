@@ -2,11 +2,21 @@ import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
+import './images/apple-logo.png'
+import './images/apple-logo-outline.png'
+import './images/chicken-parm.jpg'
+import './images/cookbook.png'
+import './images/green-apples.jpg'
+import './images/pancakes.jpg'
+import './images/search.png'
+import './images/seasoning.png'
+
 import './css/base.scss';
 import './css/styles.scss';
 
 import User from './user';
 import Recipe from './recipe';
+import ingredientsData from './data/ingredient-data';
 
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
@@ -53,7 +63,7 @@ function generateUser() {
 // CREATE RECIPE CARDS
 function createCards() {
   recipeData.forEach(recipe => {
-    let recipeInfo = new Recipe(recipe);
+    let recipeInfo = new Recipe(recipe, ingredientData);
     let shortRecipeName = recipeInfo.name;
     recipes.push(recipeInfo);
     if (recipeInfo.name.length > 40) {
@@ -271,7 +281,7 @@ function filterNonSearched(filtered) {
 }
 
 function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe));
+  recipes = recipes.map(recipe => new Recipe(recipe, ingredientData));
   return recipes
 }
 
@@ -296,7 +306,7 @@ function showAllRecipes() {
 // CREATE AND USE PANTRY
 function findPantryInfo() {
   user.pantry.forEach(item => {
-    let itemInfo = ingredientsData.find(ingredient => {
+    let itemInfo = ingredientData.find(ingredient => {
       return ingredient.id === item.ingredient;
     });
     let originalIngredient = pantryInfo.find(ingredient => {
