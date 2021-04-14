@@ -1,4 +1,14 @@
-import users from './data/users-data';
+// import users from './data/users-data';
+
+
+fetch('http://localhost:3001/api/v1/users')
+  .then(response => response.json())
+  .then(data => {
+    users = data.map(users => new User(users));
+    })
+  .catch(err => console.log('ERROR!'));
+
+
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
@@ -33,7 +43,7 @@ let searchInput = document.querySelector("#search-input");
 let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
-
+let users;
 
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
@@ -49,7 +59,7 @@ searchForm.addEventListener("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
 function generateUser() {
-  user = new User(users[Math.floor(Math.random() * users.length)]);
+  user = users[Math.floor(Math.random() * users.length)];
   let firstName = user.name.split(" ")[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -58,6 +68,7 @@ function generateUser() {
   document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
     welcomeMsg);
   findPantryInfo();
+  console.log(users);
 }
 
 // CREATE RECIPE CARDS
