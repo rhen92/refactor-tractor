@@ -7,11 +7,11 @@ import ingredientData from '../src/data/ingredient-data.js';
 describe('Recipe', function() {
   let recipe;
   let recipeInfo;
-  //let ingredients;
+  let ingredients;
 
   beforeEach(function() {
     recipeInfo = data[0];
-    // ingredients = ingredientData;
+    ingredients = ingredientData;
     recipe = new Recipe(recipeInfo, ingredients);
   })
 
