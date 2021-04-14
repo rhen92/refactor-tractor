@@ -40,7 +40,6 @@ describe('Recipe', function() {
   });
 
   it('should calculate the total cost of all of the ingredients', function() {
-
-    //expect(recipe.calculateIngredientsCost(ingredientData)).to.eq();
+    expect(recipe.calculateIngredientsCost(ingredientData)).to.eq();
   });
 });
