@@ -1,15 +1,11 @@
-// import users from './data/users-data';
+import { userGET } from './apiCalls'
 
+let users;
+userGET().then(data => {
+  users = data.map(users => new User(users));
+})
 
-fetch('http://localhost:3001/api/v1/users')
-  .then(response => response.json())
-  .then(data => {
-    users = data.map(users => new User(users));
-    })
-  .catch(err => console.log('ERROR!'));
-
-
-import recipeData from  './data/recipe-data';
+import recipeData from './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
 import './images/apple-logo.png'
@@ -26,7 +22,6 @@ import './css/styles.scss';
 
 import User from './user';
 import Recipe from './recipe';
-import ingredientsData from './data/ingredient-data';
 
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
@@ -43,7 +38,6 @@ let searchInput = document.querySelector("#search-input");
 let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
-let users;
 
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
@@ -68,7 +62,6 @@ function generateUser() {
   document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
     welcomeMsg);
   findPantryInfo();
-  console.log(users);
 }
 
 // CREATE RECIPE CARDS
@@ -328,7 +321,10 @@ function findPantryInfo() {
     if (itemInfo && originalIngredient) {
       originalIngredient.count += item.amount;
     } else if (itemInfo) {
-      pantryInfo.push({name: itemInfo.name, count: item.amount});
+      pantryInfo.push({
+        name: itemInfo.name,
+        count: item.amount
+      });
     }
   });
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
