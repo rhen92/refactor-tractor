@@ -7,6 +7,7 @@ import './css/styles.scss';
 
 import User from './user';
 import Recipe from './recipe';
+import ingredientsData from './data/ingredient-data';
 
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
@@ -53,7 +54,7 @@ function generateUser() {
 // CREATE RECIPE CARDS
 function createCards() {
   recipeData.forEach(recipe => {
-    let recipeInfo = new Recipe(recipe);
+    let recipeInfo = new Recipe(recipe, ingredientData);
     let shortRecipeName = recipeInfo.name;
     recipes.push(recipeInfo);
     if (recipeInfo.name.length > 40) {
@@ -271,7 +272,7 @@ function filterNonSearched(filtered) {
 }
 
 function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe));
+  recipes = recipes.map(recipe => new Recipe(recipe, ingredientData));
   return recipes
 }
 
