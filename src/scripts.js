@@ -2,6 +2,15 @@ import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
+import './images/apple-logo.png'
+import './images/apple-logo-outline.png'
+import './images/chicken-parm.jpg'
+import './images/cookbook.png'
+import './images/green-apples.jpg'
+import './images/pancakes.jpg'
+import './images/search.png'
+import './images/seasoning.png'
+
 import './css/base.scss';
 import './css/styles.scss';
 
@@ -297,7 +306,7 @@ function showAllRecipes() {
 // CREATE AND USE PANTRY
 function findPantryInfo() {
   user.pantry.forEach(item => {
-    let itemInfo = ingredientsData.find(ingredient => {
+    let itemInfo = ingredientData.find(ingredient => {
       return ingredient.id === item.ingredient;
     });
     let originalIngredient = pantryInfo.find(ingredient => {
