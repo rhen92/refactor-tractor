@@ -1,12 +1,24 @@
-import { userGET } from './apiCalls'
+import { userGET, ingredientsGet } from './apiCalls'
+
 
 let users;
-userGET().then(data => {
-  users = data.map(users => new User(users));
-})
+let ingredientData;
 
+// function thenCalls() {
+//   userGET().then(data => {
+//   users = data.map(users => new User(users));
+// }).then(() => generateUser())
+// ingredientsGet().then(data => {
+//   ingredientData = data;
+// }).then(() => createCards())
+// }
+
+//have to use the data in this final .then() while its available, otherwise it disappears.
+//bc its stored on the server
+
+console.log(ingredientData)
 import recipeData from './data/recipe-data';
-import ingredientData from './data/ingredient-data';
+
 
 import './images/apple-logo.png'
 import './images/apple-logo-outline.png'
@@ -39,9 +51,9 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
-window.addEventListener("load", createCards);
-window.addEventListener("load", findTags);
-window.addEventListener("load", generateUser);
+
+
+window.addEventListener("load", onLoad);
 allRecipesBtn.addEventListener("click", showAllRecipes);
 filterBtn.addEventListener("click", findCheckedBoxes);
 main.addEventListener("click", addToMyRecipes);
@@ -50,6 +62,16 @@ savedRecipesBtn.addEventListener("click", showSavedRecipes);
 searchBtn.addEventListener("click", searchRecipes);
 showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
+
+function onLoad () {
+  console.log('how bout now')
+  thenCalls();
+  createCards();
+  findTags();
+  generateUser();
+}
+
+
 
 // GENERATE A USER ON LOAD
 function generateUser() {
