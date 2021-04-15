@@ -36,15 +36,7 @@ describe('Recipe', function() {
   });
 
   it('should initialize with an array of ingredients', function() {
-    const ingredient = {
-      "id": 20081,
-      "name": "all purpose flour",
-      "quantity": {
-        "amount": 1.5,
-        "unit": "c"
-      }
-    }
-    expect(recipe.ingredients[0]).to.deep.eq(ingredient);
+    expect(recipe.ingredients).to.deep.eq(recipeInfo.ingredients);
   });
 
   it('should calculate the total cost of all of the ingredients', function() {
