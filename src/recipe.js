@@ -1,6 +1,5 @@
 class Recipe {
   constructor(recipe, ingredientData) {
-    console.log(ingredientData)
     this.id = recipe.id;
     this.name = recipe.name;
     this.image = recipe.image;

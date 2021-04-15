@@ -1,24 +1,23 @@
-import { userGET, ingredientsGet } from './apiCalls'
+import { userGET, ingredientsGet, recipeGET } from './apiCalls'
 
 
 let users;
 let ingredientData;
+let recipeData;
 
-function thenCalls() {
-  userGET().then(data => {
+userGET().then(data => {
   users = data.map(users => new User(users));
-}).then(() => generateUser())
+})
+
 ingredientsGet().then(data => {
   ingredientData = data;
-}).then(() => createCards())
-}
+})
 
-//have to use the data in this final .then() while its available, otherwise it disappears.
-//bc its stored on the server
+recipeGET().then(data => {
+  recipeData = data;
+})
 
-console.log(ingredientData)
-import recipeData from './data/recipe-data';
-
+//import recipeData from './data/recipe-data';
 
 import './images/apple-logo.png'
 import './images/apple-logo-outline.png'
@@ -64,8 +63,6 @@ showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
 
 function onLoad () {
-  console.log('how bout now')
-  thenCalls();
   createCards();
   findTags();
   generateUser();
