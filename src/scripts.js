@@ -1,5 +1,4 @@
-import { userGET, ingredientsGet, recipeGET } from './apiCalls'
-
+import { userGET, ingredientsGET, recipeGET } from './apiCalls'
 
 let users;
 let ingredientData;
@@ -9,15 +8,13 @@ userGET().then(data => {
   users = data.map(users => new User(users));
 })
 
-ingredientsGet().then(data => {
+ingredientsGET().then(data => {
   ingredientData = data;
 })
 
 recipeGET().then(data => {
   recipeData = data;
 })
-
-//import recipeData from './data/recipe-data';
 
 import './images/apple-logo.png'
 import './images/apple-logo-outline.png'
@@ -27,7 +24,6 @@ import './images/green-apples.jpg'
 import './images/pancakes.jpg'
 import './images/search.png'
 import './images/seasoning.png'
-
 import './css/base.scss';
 import './css/styles.scss';
 
@@ -50,8 +46,6 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
-
-
 window.addEventListener("load", onLoad);
 allRecipesBtn.addEventListener("click", showAllRecipes);
 filterBtn.addEventListener("click", findCheckedBoxes);
@@ -67,8 +61,6 @@ function onLoad () {
   findTags();
   generateUser();
 }
-
-
 
 // GENERATE A USER ON LOAD
 function generateUser() {
