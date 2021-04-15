@@ -4,10 +4,10 @@ import { userGET, ingredientsGet } from './apiCalls'
 let users;
 let ingredientData;
 
-// function thenCalls() {
-//   userGET().then(data => {
-//   users = data.map(users => new User(users));
-// }).then(() => generateUser())
+function thenCalls() {
+  userGET().then(data => {
+  users = data.map(users => new User(users));
+}).then(() => generateUser())
 // ingredientsGet().then(data => {
 //   ingredientData = data;
 // }).then(() => createCards())
