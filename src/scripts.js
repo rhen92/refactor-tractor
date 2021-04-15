@@ -8,10 +8,10 @@ function thenCalls() {
   userGET().then(data => {
   users = data.map(users => new User(users));
 }).then(() => generateUser())
-// ingredientsGet().then(data => {
-//   ingredientData = data;
-// }).then(() => createCards())
-// }
+ingredientsGet().then(data => {
+  ingredientData = data;
+}).then(() => createCards())
+}
 
 //have to use the data in this final .then() while its available, otherwise it disappears.
 //bc its stored on the server
