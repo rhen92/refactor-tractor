@@ -1,5 +1,11 @@
-import users from './data/users-data';
-import recipeData from  './data/recipe-data';
+import { userGET } from './apiCalls'
+
+let users;
+userGET().then(data => {
+  users = data.map(users => new User(users));
+})
+
+import recipeData from './data/recipe-data';
 import ingredientData from './data/ingredient-data';
 
 import './images/apple-logo.png'
@@ -16,7 +22,6 @@ import './css/styles.scss';
 
 import User from './user';
 import Recipe from './recipe';
-import ingredientsData from './data/ingredient-data';
 
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
@@ -34,7 +39,6 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
-
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
 window.addEventListener("load", generateUser);
@@ -49,7 +53,7 @@ searchForm.addEventListener("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
 function generateUser() {
-  user = new User(users[Math.floor(Math.random() * users.length)]);
+  user = users[Math.floor(Math.random() * users.length)];
   let firstName = user.name.split(" ")[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -317,7 +321,10 @@ function findPantryInfo() {
     if (itemInfo && originalIngredient) {
       originalIngredient.count += item.amount;
     } else if (itemInfo) {
-      pantryInfo.push({name: itemInfo.name, count: item.amount});
+      pantryInfo.push({
+        name: itemInfo.name,
+        count: item.amount
+      });
     }
   });
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
