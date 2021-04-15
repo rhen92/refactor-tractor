@@ -1,8 +1,13 @@
-import { userGET } from './apiCalls'
+import { userGET, ingredientsGET } from './apiCalls'
 
 let users;
+let ingredientData;
+
 userGET().then(data => {
   users = data.map(users => new User(users));
+})
+ingredientsGET().then(data => {
+  ingredientData = data;
 })
 
 import recipeData from './data/recipe-data';
@@ -16,7 +21,6 @@ import './images/green-apples.jpg'
 import './images/pancakes.jpg'
 import './images/search.png'
 import './images/seasoning.png'
-
 import './css/base.scss';
 import './css/styles.scss';
 
@@ -39,9 +43,7 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
-window.addEventListener("load", createCards);
-window.addEventListener("load", findTags);
-window.addEventListener("load", generateUser);
+window.addEventListener("load", onLoad);
 allRecipesBtn.addEventListener("click", showAllRecipes);
 filterBtn.addEventListener("click", findCheckedBoxes);
 main.addEventListener("click", addToMyRecipes);
@@ -50,6 +52,12 @@ savedRecipesBtn.addEventListener("click", showSavedRecipes);
 searchBtn.addEventListener("click", searchRecipes);
 showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
+
+function onLoad () {
+  createCards();
+  findTags();
+  generateUser();
+}
 
 // GENERATE A USER ON LOAD
 function generateUser() {
