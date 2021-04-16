@@ -35,7 +35,7 @@ let filterBtn = document.querySelector(".filter-btn");
 let fullRecipeInfo = document.querySelector(".recipe-instructions");
 let main = document.querySelector("main");
 let menuOpen = false;
-let pantryBtn = document.querySelector(".my-pantry-btn");
+let pantryBtn = document.querySelector("#pantry-button");
 let pantryInfo = [];
 let recipes = [];
 let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
@@ -218,6 +218,7 @@ function openRecipeInfo(event) {
   fullRecipeInfo.style.display = "inline";
   let recipeId = event.path.find(e => e.id).id;
   let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
+  console.log(recipe);
   generateRecipeTitle(recipe, generateIngredients(recipe));
   addRecipeImage(recipe);
   generateInstructions(recipe);
@@ -238,7 +239,9 @@ function addRecipeImage(recipe) {
 }
 
 function generateIngredients(recipe) {
+  console.log(recipe.ingredients);
   return recipe && recipe.ingredients.map(i => {
+    console.log(i.name);
     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
   }).join(", ");
 }
