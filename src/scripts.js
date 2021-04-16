@@ -1,24 +1,23 @@
-import {
-  userGET,
-  ingredientsGET,
-  recipeGET
-} from './apiCalls'
+// OLD SCHOOL WAY FOR REFERENCE ON WHAT PAGE SHOULD DO 👇
+import User from './user'
+import users from './data/users-data';
+import ingredientData from './data/ingredient-data';
+import recipeData from './data/recipe-data';
 
-let users;
-let ingredientData;
-let recipeData;
+// NEW SCHOOL WAY THAT STOPS WORKING WHEN CLICK EVENT HAPPENS 👇
+// import {
+//   users,
+//   ingredientData,
+//   recipeData,
+//   usersGET,
+//   ingredientsGET,
+//   recipesGET
+// } from './apiCalls'
 
-userGET().then(data => {
-  users = data.map(users => new User(users));
-})
+import Recipe from './recipe';
 
-ingredientsGET().then(data => {
-  ingredientData = data;
-})
-
-recipeGET().then(data => {
-  recipeData = data;
-})
+console.log(users);
+setTimeout(() => console.log(users), 3000);
 
 import './images/apple-logo.png'
 import './images/apple-logo-outline.png'
@@ -31,34 +30,35 @@ import './images/seasoning.png'
 import './css/base.scss';
 import './css/styles.scss';
 
-import User from './user';
-import Recipe from './recipe';
-
-const allRecipesBtn = document.querySelector('.show-all-btn');
-const filterBtn = document.querySelector('.filter-btn');
+let menuOpen = false;
+let user;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
 const main = document.querySelector('main');
-let menuOpen = false;
-const pantryBtn = document.querySelector('.my-pantry-btn');
 const pantryInfo = [];
 const recipes = [];
-const savedRecipesBtn = document.querySelector('.saved-recipes-btn');
-const searchBtn = document.querySelector('.search-btn');
 const searchForm = document.querySelector('#search');
 const searchInput = document.querySelector('#search-input');
-const showPantryRecipes = document.querySelector('.show-pantry-recipes-btn');
 const tagList = document.querySelector('.tag-list');
-let user;
+const buttons = {
+  allRecipes: document.querySelector('.show-all-btn'),
+  filter: document.querySelector('.filter-btn'),
+  pantry: document.querySelector('.my-pantry-btn'),
+  savedRecipes: document.querySelector('.saved-recipes-btn'),
+  search: document.querySelector('.search-btn'),
+  showPantryRecipes: document.querySelector('.show-pantry-recipes-btn')
+}
 
-// window.addEventListener('click', (event) => onClick(event))
+// just for testing to see what event target is
+window.addEventListener('click', (event) => console.log(event.target))
+
 window.addEventListener('load', onLoad);
-allRecipesBtn.addEventListener('click', showAllRecipes);
-filterBtn.addEventListener('click', findCheckedBoxes);
+buttons.allRecipes.addEventListener('click', showAllRecipes);
+buttons.filter.addEventListener('click', findCheckedBoxes);
+buttons.pantry.addEventListener('click', toggleMenu);
+buttons.savedRecipes.addEventListener('click', showSavedRecipes);
+buttons.search.addEventListener('click', searchRecipes);
+buttons.showPantryRecipes.addEventListener('click', findCheckedPantryBoxes);
 main.addEventListener('click', addToMyRecipes);
-pantryBtn.addEventListener('click', toggleMenu);
-savedRecipesBtn.addEventListener('click', showSavedRecipes);
-searchBtn.addEventListener('click', searchRecipes);
-showPantryRecipes.addEventListener('click', findCheckedPantryBoxes);
 searchForm.addEventListener('submit', pressEnterSearch);
 
 function onLoad() {
@@ -67,9 +67,32 @@ function onLoad() {
   generateUser();
 }
 
+function buttonHandlers(event) {
+  switch (event.target) {
+    case 'allRecipes':
+
+      break;
+    case 'filter':
+
+      break;
+    case 'pantry':
+
+      break;
+    case 'savedRecipes':
+
+      break;
+    case 'search':
+
+      break;
+    case 'showPantryRecipes':
+
+      break;
+  }
+}
+
 // GENERATE A USER ON LOAD
 function generateUser() {
-  user = users[Math.floor(Math.random() * users.length)];
+  user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -179,6 +202,22 @@ function hideUnselectedRecipes(foundRecipes) {
 }
 
 // FAVORITE RECIPE FUNCTIONALITY
+// function addToMyRecipes(event) {
+//   if (event.target.className === 'card-apple-icon') {
+//     let cardId = parseInt(event.target.closest('.recipe-card').id)
+//     if (!user.favoriteRecipes.includes(cardId)) {
+//       event.target.src = '../images/apple-logo.png';
+//       user.saveRecipe(cardId);
+//     } else {
+//       event.target.src = '../images/apple-logo-outline.png';
+//       user.removeRecipe(cardId);
+//     }
+//   } else if (event.target.id === 'exit-recipe-btn') {
+//     exitRecipe();
+//   } else if (isDescendant(event.target.closest('.recipe-card'), event.target)) {
+//     openRecipeInfo(event);
+//   }
+// }
 function addToMyRecipes(event) {
   if (event.target.className === 'card-apple-icon') {
     let cardId = parseInt(event.target.closest('.recipe-card').id)
