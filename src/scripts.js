@@ -16,6 +16,7 @@ import recipeData from './data/recipe-data';
 
 import Recipe from './recipe';
 
+// Use this to see the difference between call stack vs. async task queue 👇
 console.log(users);
 setTimeout(() => console.log(users), 3000);
 
@@ -33,9 +34,9 @@ import './css/styles.scss';
 let menuOpen = false;
 let user;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
-const main = document.querySelector('main');
 const pantryInfo = [];
 const recipes = [];
+const main = document.querySelector('main');
 const searchForm = document.querySelector('#search');
 const searchInput = document.querySelector('#search-input');
 const tagList = document.querySelector('.tag-list');
@@ -48,17 +49,11 @@ const buttons = {
   showPantryRecipes: document.querySelector('.show-pantry-recipes-btn')
 }
 
-// just for testing to see what event target is
-window.addEventListener('click', (event) => console.log(event.target))
+// just for testing to see what event target is 🎯 👇
+// window.addEventListener('click', (event) => console.log(event.target))
 
 window.addEventListener('load', onLoad);
-buttons.allRecipes.addEventListener('click', showAllRecipes);
-buttons.filter.addEventListener('click', findCheckedBoxes);
-buttons.pantry.addEventListener('click', toggleMenu);
-buttons.savedRecipes.addEventListener('click', showSavedRecipes);
-buttons.search.addEventListener('click', searchRecipes);
-buttons.showPantryRecipes.addEventListener('click', findCheckedPantryBoxes);
-main.addEventListener('click', recipeCardManagement);
+window.addEventListener('click', (event) => clickHandlers(event))
 searchForm.addEventListener('submit', pressEnterSearch);
 
 function onLoad() {
@@ -67,25 +62,28 @@ function onLoad() {
   generateUser();
 }
 
-function buttonHandlers(event) {
+function clickHandlers(event) {
   switch (event.target) {
-    case 'allRecipes':
-
+    case buttons.allRecipes:
+      showAllRecipes()
       break;
-    case 'filter':
-
+    case buttons.filter:
+      findCheckedBoxes()
       break;
-    case 'pantry':
-
+    case buttons.pantry:
+      toggleMenu()
       break;
-    case 'savedRecipes':
-
+    case buttons.savedRecipes:
+      showSavedRecipes()
       break;
-    case 'search':
-
+    case buttons.search:
+      searchRecipes()
       break;
-    case 'showPantryRecipes':
-
+    case buttons.showPantryRecipes:
+      findCheckedPantryBoxes()
+      break;
+    default:
+      recipeCardManagement(event)
       break;
   }
 }
