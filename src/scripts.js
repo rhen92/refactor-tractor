@@ -1,4 +1,8 @@
-import { userGET, ingredientsGET, recipeGET } from './apiCalls'
+import {
+  userGET,
+  ingredientsGET,
+  recipeGET
+} from './apiCalls'
 
 let users;
 let ingredientData;
@@ -30,33 +34,34 @@ import './css/styles.scss';
 import User from './user';
 import Recipe from './recipe';
 
-let allRecipesBtn = document.querySelector(".show-all-btn");
-let filterBtn = document.querySelector(".filter-btn");
-let fullRecipeInfo = document.querySelector(".recipe-instructions");
-let main = document.querySelector("main");
+const allRecipesBtn = document.querySelector('.show-all-btn');
+const filterBtn = document.querySelector('.filter-btn');
+const fullRecipeInfo = document.querySelector('.recipe-instructions');
+const main = document.querySelector('main');
 let menuOpen = false;
-let pantryBtn = document.querySelector(".my-pantry-btn");
-let pantryInfo = [];
-let recipes = [];
-let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
-let searchBtn = document.querySelector(".search-btn");
-let searchForm = document.querySelector("#search");
-let searchInput = document.querySelector("#search-input");
-let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
-let tagList = document.querySelector(".tag-list");
+const pantryBtn = document.querySelector('.my-pantry-btn');
+const pantryInfo = [];
+const recipes = [];
+const savedRecipesBtn = document.querySelector('.saved-recipes-btn');
+const searchBtn = document.querySelector('.search-btn');
+const searchForm = document.querySelector('#search');
+const searchInput = document.querySelector('#search-input');
+const showPantryRecipes = document.querySelector('.show-pantry-recipes-btn');
+const tagList = document.querySelector('.tag-list');
 let user;
 
-window.addEventListener("load", onLoad);
-allRecipesBtn.addEventListener("click", showAllRecipes);
-filterBtn.addEventListener("click", findCheckedBoxes);
-main.addEventListener("click", addToMyRecipes);
-pantryBtn.addEventListener("click", toggleMenu);
-savedRecipesBtn.addEventListener("click", showSavedRecipes);
-searchBtn.addEventListener("click", searchRecipes);
-showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
-searchForm.addEventListener("submit", pressEnterSearch);
+// window.addEventListener('click', (event) => onClick(event))
+window.addEventListener('load', onLoad);
+allRecipesBtn.addEventListener('click', showAllRecipes);
+filterBtn.addEventListener('click', findCheckedBoxes);
+main.addEventListener('click', addToMyRecipes);
+pantryBtn.addEventListener('click', toggleMenu);
+savedRecipesBtn.addEventListener('click', showSavedRecipes);
+searchBtn.addEventListener('click', searchRecipes);
+showPantryRecipes.addEventListener('click', findCheckedPantryBoxes);
+searchForm.addEventListener('submit', pressEnterSearch);
 
-function onLoad () {
+function onLoad() {
   createCards();
   findTags();
   generateUser();
@@ -65,12 +70,12 @@ function onLoad () {
 // GENERATE A USER ON LOAD
 function generateUser() {
   user = users[Math.floor(Math.random() * users.length)];
-  let firstName = user.name.split(" ")[0];
+  let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
       <h1>Welcome ${firstName}!</h1>
     </div>`;
-  document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
+  document.querySelector('.banner-image').insertAdjacentHTML('afterbegin',
     welcomeMsg);
   findPantryInfo();
 }
@@ -82,7 +87,7 @@ function createCards() {
     let shortRecipeName = recipeInfo.name;
     recipes.push(recipeInfo);
     if (recipeInfo.name.length > 40) {
-      shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
+      shortRecipeName = recipeInfo.name.substring(0, 40) + '...';
     }
     addToDom(recipeInfo, shortRecipeName)
   });
@@ -90,10 +95,10 @@ function createCards() {
 
 function addToDom(recipeInfo, shortRecipeName) {
   let cardHtml = `
-    <div class="recipe-card" id=${recipeInfo.id}>
+    <div class="recipe-card" id="${recipeInfo.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
       <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+        <img src="${recipeInfo.image}" class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
         <div class="text">
           <div>Click for Instructions</div>
         </div>
@@ -101,7 +106,7 @@ function addToDom(recipeInfo, shortRecipeName) {
       <h4>${recipeInfo.tags[0]}</h4>
       <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
     </div>`
-  main.insertAdjacentHTML("beforeend", cardHtml);
+  main.insertAdjacentHTML('beforeend', cardHtml);
 }
 
 // FILTER BY RECIPE TAGS
@@ -122,18 +127,18 @@ function listTags(allTags) {
   allTags.forEach(tag => {
     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
       <label for="${tag}">${capitalize(tag)}</label></li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
+    tagList.insertAdjacentHTML('beforeend', tagHtml);
   });
 }
 
 function capitalize(words) {
-  return words.split(" ").map(word => {
+  return words.split(' ').map(word => {
     return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(" ");
+  }).join(' ');
 }
 
 function findCheckedBoxes() {
-  let tagCheckboxes = document.querySelectorAll(".checked-tag");
+  let tagCheckboxes = document.querySelectorAll('.checked-tag');
   let checkboxInfo = Array.from(tagCheckboxes)
   let selectedTags = checkboxInfo.filter(box => {
     return box.checked;
@@ -169,24 +174,24 @@ function filterRecipes(filtered) {
 function hideUnselectedRecipes(foundRecipes) {
   foundRecipes.forEach(recipe => {
     let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
+    domRecipe.style.display = 'none';
   });
 }
 
 // FAVORITE RECIPE FUNCTIONALITY
-function addToMyRecipes() {
-  if (event.target.className === "card-apple-icon") {
-    let cardId = parseInt(event.target.closest(".recipe-card").id)
+function addToMyRecipes(event) {
+  if (event.target.className === 'card-apple-icon') {
+    let cardId = parseInt(event.target.closest('.recipe-card').id)
     if (!user.favoriteRecipes.includes(cardId)) {
-      event.target.src = "../images/apple-logo.png";
+      event.target.src = '../images/apple-logo.png';
       user.saveRecipe(cardId);
     } else {
-      event.target.src = "../images/apple-logo-outline.png";
+      event.target.src = '../images/apple-logo-outline.png';
       user.removeRecipe(cardId);
     }
-  } else if (event.target.id === "exit-recipe-btn") {
+  } else if (event.target.id === 'exit-recipe-btn') {
     exitRecipe();
-  } else if (isDescendant(event.target.closest(".recipe-card"), event.target)) {
+  } else if (isDescendant(event.target.closest('.recipe-card'), event.target)) {
     openRecipeInfo(event);
   }
 }
@@ -208,20 +213,20 @@ function showSavedRecipes() {
   });
   unsavedRecipes.forEach(recipe => {
     let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
+    domRecipe.style.display = 'none';
   });
   showMyRecipesBanner();
 }
 
 // CREATE RECIPE INSTRUCTIONS
 function openRecipeInfo(event) {
-  fullRecipeInfo.style.display = "inline";
+  fullRecipeInfo.style.display = 'inline';
   let recipeId = event.path.find(e => e.id).id;
   let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
   generateRecipeTitle(recipe, generateIngredients(recipe));
   addRecipeImage(recipe);
   generateInstructions(recipe);
-  fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
+  fullRecipeInfo.insertAdjacentHTML('beforebegin', '<section id="overlay"></div>');
 }
 
 function generateRecipeTitle(recipe, ingredients) {
@@ -230,47 +235,47 @@ function generateRecipeTitle(recipe, ingredients) {
     <h3 id="recipe-title">${recipe.name}</h3>
     <h4>Ingredients</h4>
     <p>${ingredients}</p>`
-  fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
+  fullRecipeInfo.insertAdjacentHTML('beforeend', recipeTitle);
 }
 
 function addRecipeImage(recipe) {
-  document.getElementById("recipe-title").style.backgroundImage = `url(${recipe.image})`;
+  document.getElementById('recipe-title').style.backgroundImage = `url(${recipe.image})`;
 }
 
 function generateIngredients(recipe) {
   return recipe && recipe.ingredients.map(i => {
     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
-  }).join(", ");
+  }).join(', ');
 }
 
 function generateInstructions(recipe) {
-  let instructionsList = "";
+  let instructionsList = '';
   let instructions = recipe.instructions.map(i => {
     return i.instruction
   });
   instructions.forEach(i => {
     instructionsList += `<li>${i}</li>`
   });
-  fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
-  fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
+  fullRecipeInfo.insertAdjacentHTML('beforeend', '<h4>Instructions</h4>');
+  fullRecipeInfo.insertAdjacentHTML('beforeend', `<ol>${instructionsList}</ol>`);
 }
 
 function exitRecipe() {
   while (fullRecipeInfo.firstChild &&
     fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
-  fullRecipeInfo.style.display = "none";
-  document.getElementById("overlay").remove();
+  fullRecipeInfo.style.display = 'none';
+  document.getElementById('overlay').remove();
 }
 
 // TOGGLE DISPLAYS
 function showMyRecipesBanner() {
-  document.querySelector(".welcome-msg").style.display = "none";
-  document.querySelector(".my-recipes-banner").style.display = "block";
+  document.querySelector('.welcome-msg').style.display = 'none';
+  document.querySelector('.my-recipes-banner').style.display = 'block';
 }
 
 function showWelcomeBanner() {
-  document.querySelector(".welcome-msg").style.display = "flex";
-  document.querySelector(".my-recipes-banner").style.display = "none";
+  document.querySelector('.welcome-msg').style.display = 'flex';
+  document.querySelector('.my-recipes-banner').style.display = 'none';
 }
 
 // SEARCH RECIPES
@@ -301,19 +306,19 @@ function createRecipeObject(recipes) {
 }
 
 function toggleMenu() {
-  var menuDropdown = document.querySelector(".drop-menu");
+  var menuDropdown = document.querySelector('.drop-menu');
   menuOpen = !menuOpen;
   if (menuOpen) {
-    menuDropdown.style.display = "block";
+    menuDropdown.style.display = 'block';
   } else {
-    menuDropdown.style.display = "none";
+    menuDropdown.style.display = 'none';
   }
 }
 
 function showAllRecipes() {
   recipes.forEach(recipe => {
     let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "block";
+    domRecipe.style.display = 'block';
   });
   showWelcomeBanner();
 }
@@ -345,13 +350,13 @@ function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {
     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
       <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
-    document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
+    document.querySelector('.pantry-list').insertAdjacentHTML('beforeend',
       ingredientHtml);
   });
 }
 
 function findCheckedPantryBoxes() {
-  let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
+  let pantryCheckboxes = document.querySelectorAll('.pantry-checkbox');
   let pantryCheckboxInfo = Array.from(pantryCheckboxes)
   let selectedIngredients = pantryCheckboxInfo.filter(box => {
     return box.checked;
@@ -374,7 +379,7 @@ function findRecipesWithCheckedIngredients(selected) {
     });
     if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
       let domRecipe = document.getElementById(`${recipe.id}`);
-      domRecipe.style.display = "none";
+      domRecipe.style.display = 'none';
     }
   })
 }
