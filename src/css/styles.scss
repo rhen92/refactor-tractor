@@ -136,12 +136,13 @@ span {
   font-size: 0px;
   font-weight: 700;
   justify-content: center;
-  margin: 0%;
   outline: none;
   overflow: hidden;
   text-align: center;
   transition: .4s ease;
   width: 15%;
+  margin: 1% 0%;
+  padding: 1px 6px 5px 0px;
 }
 
 .nav-btn:hover {
@@ -160,12 +161,6 @@ span {
 .saved-ingredients-btn {
   border-left: 3px solid #C4EB67;
 }
-
-.ing-pan-btn {
-  margin: 1% 0%;
-  padding: 1px 6px 5px 0px;
-}
-
 
 /* BANNER IMAGE*/
 .banner-image {
