@@ -31,7 +31,7 @@ import './images/seasoning.png'
 import './css/base.scss';
 import './css/styles.scss';
 
-let menuOpen = false;
+let pantryMenuOpen = false;
 let user;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
 const pantryInfo = [];
@@ -51,7 +51,7 @@ const buttons = {
 
 window.addEventListener('load', onLoad);
 window.addEventListener('click', (event) => clickHandlers(event))
-searchForm.addEventListener('submit', pressEnterSearch);
+searchForm.addEventListener('submit', (event) => searchRecipes(event));
 
 function onLoad() {
   createCards();
@@ -68,13 +68,13 @@ function clickHandlers(event) {
       findCheckedBoxes()
       break;
     case buttons.pantry:
-      toggleMenu()
+      togglePantryMenu()
       break;
     case buttons.savedRecipes:
       showSavedRecipes()
       break;
     case buttons.search:
-      searchRecipes()
+      searchRecipes(event)
       break;
     case buttons.showPantryRecipes:
       findCheckedPantryBoxes()
@@ -87,6 +87,8 @@ function clickHandlers(event) {
 
 // GENERATE A USER ON LOAD
 function generateUser() {
+  // USE WHEN BRINGING BACK USER DATA W/ API CALLS 👇
+  // user = users[Math.floor(Math.random() * users.length)];
   user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
@@ -107,12 +109,12 @@ function createCards() {
     if (recipeInfo.name.length > 40) {
       shortRecipeName = recipeInfo.name.substring(0, 40) + '...';
     }
-    addToDom(recipeInfo, shortRecipeName)
+    addRecipeCardToDom(recipeInfo, shortRecipeName)
   });
 }
 
-function addToDom(recipeInfo, shortRecipeName) {
-const main = document.querySelector('main');
+function addRecipeCardToDom(recipeInfo, shortRecipeName) {
+  const main = document.querySelector('main');
   let cardHtml = `
     <div class="recipe-card" id="${recipeInfo.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
@@ -143,7 +145,7 @@ function findTags() {
 }
 
 function listTags(allTags) {
-const tagList = document.querySelector('.tag-list');
+  const tagList = document.querySelector('.tag-list');
   allTags.forEach(tag => {
     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
       <label for="${tag}">${capitalize(tag)}</label></li>`;
@@ -164,7 +166,7 @@ function findCheckedBoxes() {
     return box.checked;
   })
   findTaggedRecipes(selectedTags);
-  showAllRecipesBanner();
+  renderShowAllRecipesBanner();
 }
 
 function findTaggedRecipes(selected) {
@@ -243,7 +245,7 @@ function showSavedRecipes() {
     let domRecipe = document.getElementById(`${recipe.id}`);
     domRecipe.style.display = 'none';
   });
-  showAllRecipesBanner();
+  renderShowAllRecipesBanner();
 }
 
 // CREATE RECIPE INSTRUCTIONS
@@ -296,7 +298,7 @@ function exitRecipe() {
 }
 
 // TOGGLE DISPLAYS
-function showAllRecipesBanner() {
+function renderShowAllRecipesBanner() {
   document.querySelector('.welcome-msg').style.display = 'none';
   document.querySelector('.my-recipes-banner').style.display = 'block';
 }
@@ -307,20 +309,16 @@ function showWelcomeBanner() {
 }
 
 // SEARCH RECIPES
-function pressEnterSearch(event) {
-  event.preventDefault();
-  searchRecipes();
-  showAllRecipesBanner();
-}
 
-function searchRecipes() {
-const searchInput = document.querySelector('#search-input');
+function searchRecipes(event) {
+  event.preventDefault();
+  const searchInput = document.querySelector('#search-input');
   showAllRecipes();
   let searchedRecipes = recipeData.filter(recipe => {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
   });
   filterNonSearched(createRecipeObject(searchedRecipes));
-  showAllRecipesBanner();
+  renderShowAllRecipesBanner();
 }
 
 function filterNonSearched(filtered) {
@@ -336,10 +334,10 @@ function createRecipeObject(recipes) {
   return recipes
 }
 
-function toggleMenu() {
+function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
-  menuOpen = !menuOpen;
-  if (menuOpen) {
+  pantryMenuOpen = !pantryMenuOpen;
+  if (pantryMenuOpen) {
     menuDropdown.style.display = 'block';
   } else {
     menuDropdown.style.display = 'none';
@@ -395,7 +393,7 @@ function findCheckedPantryBoxes() {
   showAllRecipes();
   if (selectedIngredients.length > 0) {
     findRecipesWithCheckedIngredients(selectedIngredients);
-    showAllRecipesBanner();
+    renderShowAllRecipesBanner();
   }
 }
 
