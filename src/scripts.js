@@ -17,8 +17,8 @@ import recipeData from './data/recipe-data';
 import Recipe from './recipe';
 
 // Use this to see the difference between call stack vs. async task queue 👇
-console.log(users);
-setTimeout(() => console.log(users), 3000);
+// console.log(users);
+// setTimeout(() => console.log(users), 3000);
 
 import './images/apple-logo.png'
 import './images/apple-logo-outline.png'
@@ -46,7 +46,7 @@ const buttons = {
   pantry: document.querySelector('.my-pantry-btn'),
   savedRecipes: document.querySelector('.saved-recipes-btn'),
   search: document.querySelector('.search-btn'),
-  showPantryRecipes: document.querySelector('.show-pantry-recipes-btn')
+  showPantryRecipes: document.querySelector('.show-pantry-recipes-btn'),
 }
 
 // just for testing to see what event target is 🎯 👇
@@ -165,6 +165,7 @@ function findCheckedBoxes() {
     return box.checked;
   })
   findTaggedRecipes(selectedTags);
+  showAllRecipesBanner();
 }
 
 function findTaggedRecipes(selected) {
@@ -243,7 +244,7 @@ function showSavedRecipes() {
     let domRecipe = document.getElementById(`${recipe.id}`);
     domRecipe.style.display = 'none';
   });
-  showMyRecipesBanner();
+  showAllRecipesBanner();
 }
 
 // CREATE RECIPE INSTRUCTIONS
@@ -296,7 +297,7 @@ function exitRecipe() {
 }
 
 // TOGGLE DISPLAYS
-function showMyRecipesBanner() {
+function showAllRecipesBanner() {
   document.querySelector('.welcome-msg').style.display = 'none';
   document.querySelector('.my-recipes-banner').style.display = 'block';
 }
@@ -310,6 +311,7 @@ function showWelcomeBanner() {
 function pressEnterSearch(event) {
   event.preventDefault();
   searchRecipes();
+  showAllRecipesBanner();
 }
 
 function searchRecipes() {
@@ -318,6 +320,7 @@ function searchRecipes() {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
   });
   filterNonSearched(createRecipeObject(searchedRecipes));
+  showAllRecipesBanner();
 }
 
 function filterNonSearched(filtered) {
@@ -392,12 +395,13 @@ function findCheckedPantryBoxes() {
   showAllRecipes();
   if (selectedIngredients.length > 0) {
     findRecipesWithCheckedIngredients(selectedIngredients);
+    showAllRecipesBanner();
   }
 }
 
 function findRecipesWithCheckedIngredients(selected) {
   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  let ingredientNames = selected.map(item => {
+  let ingredientList = selected.map(item => {
     return item.id;
   })
   recipes.forEach(recipe => {
@@ -405,7 +409,7 @@ function findRecipesWithCheckedIngredients(selected) {
     recipe.ingredients.forEach(ingredient => {
       allRecipeIngredients.push(ingredient.name);
     });
-    if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
+    if (!recipeChecker(allRecipeIngredients, ingredientList)) {
       let domRecipe = document.getElementById(`${recipe.id}`);
       domRecipe.style.display = 'none';
     }
