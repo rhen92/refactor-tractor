@@ -55,15 +55,12 @@ header {
   width: 100%;
 }
 
-span {
-  color: #C4EB67;
-  font-weight: 400;
-}
-
 .header-apple-icon {
   height: 40px;
   margin-left: 5px;
   width: 35px;
+  color: #C4EB67;
+  font-weight: 400;
 }
 
 #search {
@@ -121,9 +118,9 @@ span {
 }
 
 .search-btn {
-  border-left: 3px outset #C4EB67;
+  // border-left: 3px outset #C4EB67;
   border-radius: 0px 15px 15px 0px;
-  padding: 1%;
+  // padding: 1%;
 }
 
 .nav-btn {
