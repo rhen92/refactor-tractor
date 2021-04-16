@@ -36,10 +36,7 @@ let user;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
 const pantryInfo = [];
 const recipes = [];
-const main = document.querySelector('main');
 const searchForm = document.querySelector('#search');
-const searchInput = document.querySelector('#search-input');
-const tagList = document.querySelector('.tag-list');
 const buttons = {
   allRecipes: document.querySelector('.show-all-btn'),
   filter: document.querySelector('.filter-btn'),
@@ -115,6 +112,7 @@ function createCards() {
 }
 
 function addToDom(recipeInfo, shortRecipeName) {
+const main = document.querySelector('main');
   let cardHtml = `
     <div class="recipe-card" id="${recipeInfo.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
@@ -145,6 +143,7 @@ function findTags() {
 }
 
 function listTags(allTags) {
+const tagList = document.querySelector('.tag-list');
   allTags.forEach(tag => {
     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
       <label for="${tag}">${capitalize(tag)}</label></li>`;
@@ -315,6 +314,7 @@ function pressEnterSearch(event) {
 }
 
 function searchRecipes() {
+const searchInput = document.querySelector('#search-input');
   showAllRecipes();
   let searchedRecipes = recipeData.filter(recipe => {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
