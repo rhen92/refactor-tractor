@@ -193,7 +193,7 @@ function recipeCardManagement(event) {
     case isDescendant(event.target.closest('.recipe-card'), event.target):
       openRecipeInfo(event);
       break;
-    case event.target.id === 'exit-recipe-btn':
+    case event.target.id === 'close':
       exitRecipe();
       break
   }
@@ -237,19 +237,26 @@ function openRecipeInfo(event) {
   fullRecipeInfo.style.display = 'inline';
   let recipeId = event.path.find(e => e.id).id;
   let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
-  generateRecipeTitle(recipe, generateIngredients(recipe));
+  generateRecipeTitle(recipe, generateIngredients(recipe), event);
   addRecipeImage(recipe);
   generateInstructions(recipe);
   fullRecipeInfo.insertAdjacentHTML('beforebegin', '<section id="overlay"></div>');
 }
 
-function generateRecipeTitle(recipe, ingredients) {
+function generateRecipeTitle(recipe, ingredients, event) {
   let recipeTitle = `
-    <button id="exit-recipe-btn">X</button>
+    <button id="close" aria-label="close">X</button>
     <h3 id="recipe-title">${recipe.name}</h3>
     <h4>Ingredients</h4>
     <p>${ingredients}</p>`
   fullRecipeInfo.insertAdjacentHTML('beforeend', recipeTitle);
+  const close = document.getElementById('close');
+  close.focus();
+  close.addEventListener('keydown', function(event) {
+    if(event.keyCode === 9) {
+      event.preventDefault();
+    }
+  })
 }
 
 function addRecipeImage(recipe) {
