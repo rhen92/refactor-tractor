@@ -115,17 +115,17 @@ function createCards() {
 function addRecipeCardToDom(recipeInfo, shortRecipeName) {
   const main = document.querySelector('main');
   let cardHtml = `
-    <div class="recipe-card" id="${recipeInfo.id}">
+    <article tabindex="0" class="recipe-card" id="${recipeInfo.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
       <div class="card-photo-container">
         <img src="${recipeInfo.image}" class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
+        <button class="text">
+          <a>Click for Instructions</a>
+        </button>
       </div>
       <h4>${recipeInfo.tags[0]}</h4>
       <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-    </div>`
+    </article>`
   main.insertAdjacentHTML('beforeend', cardHtml);
 }
 
@@ -252,7 +252,6 @@ function openRecipeInfo(event) {
   fullRecipeInfo.style.display = 'inline';
   let recipeId = event.path.find(e => e.id).id;
   let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
-  console.log(recipe);
   generateRecipeTitle(recipe, generateIngredients(recipe));
   addRecipeImage(recipe);
   generateInstructions(recipe);
@@ -273,9 +272,7 @@ function addRecipeImage(recipe) {
 }
 
 function generateIngredients(recipe) {
-  console.log(recipe.ingredients);
   return recipe && recipe.ingredients.map(i => {
-    console.log(i.name);
     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
   }).join(', ');
 }
@@ -338,11 +335,14 @@ function createRecipeObject(recipes) {
 
 function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
+  let attr = buttons.pantry.getAttribute("aria-expanded");
   pantryMenuOpen = !pantryMenuOpen;
-  if (pantryMenuOpen) {
+  if (pantryMenuOpen && !attr) {
     menuDropdown.style.display = 'block';
+    buttons.pantry[attr] = true;
   } else {
     menuDropdown.style.display = 'none';
+    buttons.pantry[attr] = false;
   }
 }
 
