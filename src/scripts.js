@@ -15,6 +15,7 @@ import recipeData from './data/recipe-data';
 // } from './apiCalls'
 
 import Recipe from './Recipe';
+import RecipeRepository from './RecipeRepository'
 
 // Use this to see the difference between call stack vs. async task queue 👇
 // console.log(users);
@@ -33,9 +34,10 @@ import './css/styles.scss';
 
 let pantryMenuOpen = false;
 let user;
+let recipes;
+let recipeRepo;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
 const pantryInfo = [];
-const recipes = [];
 const searchForm = document.querySelector('#search');
 const buttons = {
   allRecipes: document.querySelector('.show-all-btn'),
@@ -54,9 +56,10 @@ window.addEventListener('click', (event) => clickHandlers(event))
 searchForm.addEventListener('submit', (event) => searchRecipes(event));
 
 function onLoad() {
+  generateUser();
+  generateRecipes();
   createCards();
   findTags();
-  generateUser();
 }
 
 function clickHandlers(event) {
@@ -100,31 +103,35 @@ function generateUser() {
   findPantryInfo();
 }
 
+function generateRecipes() {
+  recipes = recipeData.map(recipe => new Recipe(recipe, ingredientData));
+  recipeRepo = new RecipeRepository(recipes);
+}
+
+
 // CREATE RECIPE CARDS
 function createCards() {
-  recipeData.forEach(recipe => {
-    let recipeInfo = new Recipe(recipe, ingredientData);
-    let shortRecipeName = recipeInfo.name;
-    recipes.push(recipeInfo);
-    if (recipeInfo.name.length > 40) {
-      shortRecipeName = recipeInfo.name.substring(0, 40) + '...';
+  recipes.forEach(recipe => {
+    let shortRecipeName = recipe.name;
+    if (recipe.name.length > 40) {
+      shortRecipeName = recipe.name.substring(0, 40) + '...';
     }
-    addRecipeCardToDom(recipeInfo, shortRecipeName)
+    addRecipeCardToDom(recipe, shortRecipeName)
   });
 }
 
-function addRecipeCardToDom(recipeInfo, shortRecipeName) {
+function addRecipeCardToDom(recipe, shortRecipeName) {
   const main = document.querySelector('main');
   let cardHtml = `
-    <div class="recipe-card" id="${recipeInfo.id}">
+    <div class="recipe-card" id="${recipe.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
       <div class="card-photo-container">
-        <img src="${recipeInfo.image}" class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+        <img src="${recipe.image}" class="card-photo-preview" alt="${recipe.name} recipe" title="${recipe.name} recipe">
         <div class="text">
           <div>Click for Instructions</div>
         </div>
       </div>
-      <h4>${recipeInfo.tags[0]}</h4>
+      <h4>${recipe.tags[0]}</h4>
       <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
     </div>`
   main.insertAdjacentHTML('beforeend', cardHtml);
@@ -133,12 +140,9 @@ function addRecipeCardToDom(recipeInfo, shortRecipeName) {
 // FILTER BY RECIPE TAGS
 function findTags() {
   let tags = [];
-  recipeData.forEach(recipe => {
-    recipe.tags.forEach(tag => {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
-    });
+  let recipeTagLists = recipes.map(recipe => recipe.tags);
+  recipeTagLists.forEach(tagList => {
+    tags.push(...tagList.filter(tag => !tags.includes(tag)))
   });
   tags.sort();
   listTags(tags);
@@ -314,10 +318,10 @@ function searchRecipes(event) {
   event.preventDefault();
   const searchInput = document.querySelector('#search-input');
   showAllRecipes();
-  let searchedRecipes = recipeData.filter(recipe => {
-    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
-  });
-  filterNonSearched(createRecipeObject(searchedRecipes));
+  const names = recipeRepo.filterRecipesByName(searchInput.value.toLowerCase());
+  const ingredients = recipeRepo.filterRecipesByIngredient(searchInput.value.toLowerCase());
+  let searchedRecipes = [...names, ...ingredients]
+  filterNonSearched(searchedRecipes);
   renderShowAllRecipesBanner();
 }
 
@@ -329,10 +333,10 @@ function filterNonSearched(filtered) {
   hideUnselectedRecipes(found);
 }
 
-function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe, ingredientData));
-  return recipes
-}
+// function createRecipeObject(recipes) {
+//   recipes = recipes.map(recipe => new Recipe(recipe, ingredientData));
+//   return recipes
+// }
 
 function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');

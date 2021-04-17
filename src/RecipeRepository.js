@@ -1,18 +1,22 @@
 class RecipeRepository {
   constructor(recipeData) {
-    this.recipeData = recipeData;
+    this.recipeList = recipeData;
   }
 
   filterRecipesByTag() {
-    return this.recipeData.filter(recipe => recipe.tags.includes(tag));
-  }
-
-  filterRecipesByIngredient(keyword) {
-    return this.recipeData.filter(recipe => recipe.ingredients.includes(keyword));
+    return this.recipeList.filter(recipe => recipe.tags.includes(tag));
   }
 
   filterRecipesByName(keyword) {
-   return this.recipeData.filter(recipe => recipe.name.includes(keyword));
+    const nameList = this.recipeList.map(rec => rec.name).map(title => title.split(' ')).flat();
+    const filteredNameList = nameList.filter(name => name.toLowerCase().includes(keyword.toLowerCase()));
+    return this.recipeList.filter(recipe => recipe.name.split(' ').some(word => filteredNameList.includes(word)))
+  }
+
+  filterRecipesByIngredient(keyword) {
+    const ingredientList = this.recipeList.map(rec => rec.ingredients).flat().map(ing => ing.name)
+    const filteredIngredientList = Array.from(new Set(ingredientList.filter(ing => ing.includes(keyword.toLowerCase()))))
+    return this.recipeList.filter(recipe => recipe.ingredients.some(ingredient => filteredIngredientList.includes(ingredient.name)))
   }
 }
 
