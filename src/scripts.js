@@ -1,20 +1,18 @@
 // OLD SCHOOL WAY FOR REFERENCE ON WHAT PAGE SHOULD DO 👇
-import User from './user'
-import users from './data/users-data';
-import ingredientData from './data/ingredient-data';
-import recipeData from './data/recipe-data';
+// import User from './User'
+// import users from './data/users-data';
+// import ingredientData from './data/ingredient-data';
+// import recipeData from './data/recipe-data';
 
 // NEW SCHOOL WAY THAT STOPS WORKING WHEN CLICK EVENT HAPPENS 👇
-// import {
-//   users,
-//   ingredientData,
-//   recipeData,
-//   usersGET,
-//   ingredientsGET,
-//   recipesGET
-// } from './apiCalls'
+import {
+  users,
+  ingredientData,
+  recipeData,
+} from './apiCalls'
 
-import Recipe from './recipe';
+import Recipe from './Recipe';
+import RecipeRepository from './RecipeRepository'
 
 // Use this to see the difference between call stack vs. async task queue 👇
 // console.log(users);
@@ -32,9 +30,10 @@ import './css/base.scss';
 import './css/styles.scss';
 let pantryMenuOpen = false;
 let user;
+let recipes;
+let recipeRepo;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
 const pantryInfo = [];
-const recipes = [];
 const searchForm = document.querySelector('#search');
 const buttons = {
   allRecipes: document.querySelector('.show-all-btn'),
@@ -48,14 +47,15 @@ const buttons = {
 // just for testing to see what event target is 🎯 👇
 // window.addEventListener('click', (event) => console.log(event.target))
 
-window.addEventListener('load', onLoad);
+window.addEventListener('load', () => setTimeout(onLoad(), 1000));
 window.addEventListener('click', (event) => clickHandlers(event))
 searchForm.addEventListener('submit', (event) => searchRecipes(event));
 
 function onLoad() {
+  generateUser();
+  generateRecipes();
   createCards();
   findTags();
-  generateUser();
 }
 
 function clickHandlers(event) {
@@ -85,10 +85,10 @@ function clickHandlers(event) {
 }
 
 // GENERATE A USER ON LOAD
-function generateUser() {
+async function generateUser() {
   // USE WHEN BRINGING BACK USER DATA W/ API CALLS 👇
-  // user = users[Math.floor(Math.random() * users.length)];
-  user = new User(users[Math.floor(Math.random() * users.length)]);
+  user = users[0][Math.floor(Math.random() * users[0].length)];
+  // user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -99,45 +99,46 @@ function generateUser() {
   findPantryInfo();
 }
 
+function generateRecipes() {
+  recipes = recipeData.map(recipe => new Recipe(recipe, ingredientData));
+  recipeRepo = new RecipeRepository(recipes);
+}
+
+
 // CREATE RECIPE CARDS
 function createCards() {
-  recipeData.forEach(recipe => {
-    let recipeInfo = new Recipe(recipe, ingredientData);
-    let shortRecipeName = recipeInfo.name;
-    recipes.push(recipeInfo);
-    if (recipeInfo.name.length > 40) {
-      shortRecipeName = recipeInfo.name.substring(0, 40) + '...';
+  recipes.forEach(recipe => {
+    let shortRecipeName = recipe.name;
+    if (recipe.name.length > 40) {
+      shortRecipeName = recipe.name.substring(0, 40) + '...';
     }
-    addRecipeCardToDom(recipeInfo, shortRecipeName)
+    addRecipeCardToDom(recipe, shortRecipeName)
   });
 }
 
-function addRecipeCardToDom(recipeInfo, shortRecipeName) {
+function addRecipeCardToDom(recipe, shortRecipeName) {
   const main = document.querySelector('main');
   let cardHtml = `
-    <div class="recipe-card" id="${recipeInfo.id}">
+    <article tabindex="0" class="recipe-card" id="${recipe.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
       <div class="card-photo-container">
-        <img src="${recipeInfo.image}" class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
+        <img src="${recipe.image}" class="card-photo-preview" alt="${recipe.name} recipe" title="${recipe.name} recipe">
+        <button class="text">
+          <a>Click for Instructions</a>
+        </button>
       </div>
-      <h4>${recipeInfo.tags[0]}</h4>
+      <h4>${recipe.tags[0]}</h4>
       <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-    </div>`
+    </article>`
   main.insertAdjacentHTML('beforeend', cardHtml);
 }
 
 // FILTER BY RECIPE TAGS
 function findTags() {
   let tags = [];
-  recipeData.forEach(recipe => {
-    recipe.tags.forEach(tag => {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
-    });
+  let recipeTagLists = recipes.map(recipe => recipe.tags);
+  recipeTagLists.forEach(tagList => {
+    tags.push(...tagList.filter(tag => !tags.includes(tag)))
   });
   tags.sort();
   listTags(tags);
@@ -252,7 +253,6 @@ function openRecipeInfo(event) {
   fullRecipeInfo.style.display = 'inline';
   let recipeId = event.path.find(e => e.id).id;
   let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
-  console.log(recipe);
   generateRecipeTitle(recipe, generateIngredients(recipe));
   addRecipeImage(recipe);
   generateInstructions(recipe);
@@ -273,10 +273,10 @@ function addRecipeImage(recipe) {
 }
 
 function generateIngredients(recipe) {
-  console.log(recipe.ingredients);
-  return recipe && recipe.ingredients.map(i => {
-    console.log(i.name);
-    return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
+  let ingredients = recipe.ingredients.sort((a, b) => a - b);
+  let ingredientNames = ingredients.map(ing => ingredientData.filter(i => i.id === ing.id).map(i => capitalize(i.name)).toString());
+  return ingredients.map((ing, index) => {
+    return `${ingredientNames[index]} (${ing.quantity.amount} ${ing.quantity.unit})`
   }).join(', ');
 }
 
@@ -316,10 +316,10 @@ function searchRecipes(event) {
   event.preventDefault();
   const searchInput = document.querySelector('#search-input');
   showAllRecipes();
-  let searchedRecipes = recipeData.filter(recipe => {
-    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
-  });
-  filterNonSearched(createRecipeObject(searchedRecipes));
+  const names = recipeRepo.filterRecipesByName(searchInput.value.toLowerCase());
+  const ingredients = recipeRepo.filterRecipesByIngredient(searchInput.value.toLowerCase());
+  let searchedRecipes = [...names, ...ingredients]
+  filterNonSearched(searchedRecipes);
   renderShowAllRecipesBanner();
 }
 
@@ -331,18 +331,16 @@ function filterNonSearched(filtered) {
   hideUnselectedRecipes(found);
 }
 
-function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe, ingredientData));
-  return recipes
-}
-
 function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
+  let attr = buttons.pantry.getAttribute("aria-expanded");
   pantryMenuOpen = !pantryMenuOpen;
-  if (pantryMenuOpen) {
+  if (pantryMenuOpen && attr === 'false') {
     menuDropdown.style.display = 'block';
+    buttons.pantry.setAttribute("aria-expanded", true);
   } else {
     menuDropdown.style.display = 'none';
+    buttons.pantry.setAttribute("aria-expanded", false);
   }
 }
 
@@ -406,7 +404,7 @@ function findRecipesWithCheckedIngredients(selected) {
   })
   recipes.forEach(recipe => {
     let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
+    recipe.ingredientData.forEach(ingredient => {
       allRecipeIngredients.push(ingredient.name);
     });
     if (!recipeChecker(allRecipeIngredients, ingredientList)) {

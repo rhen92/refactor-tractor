@@ -131,7 +131,7 @@ header {
   font-size: 0px;
   font-weight: 700;
   justify-content: center;
-  outline: none;
+  // outline: none;
   overflow: hidden;
   text-align: center;
   transition: .4s ease;
@@ -246,6 +246,15 @@ main {
   font-size: 20px;
   opacity: 100%;
   transition: .5s ease;
+  width: 100%;
+}
+
+.text:focus-visible {
+  opacity: 100%;
+  font-size: 20px;
+  background-color: #359567;
+  position: absolute;
+  text-align: center;
   width: 100%;
 }
 
