@@ -26,8 +26,8 @@ import './images/green-apples.jpg'
 import './images/pancakes.jpg'
 import './images/search.png'
 import './images/seasoning.png'
-import './css/base.scss';
-import './css/styles.scss';
+import './css/index.scss';
+
 let pantryMenuOpen = false;
 let user;
 let recipes;
