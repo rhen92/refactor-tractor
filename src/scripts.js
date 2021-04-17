@@ -1,10 +1,3 @@
-// OLD SCHOOL WAY FOR REFERENCE ON WHAT PAGE SHOULD DO 👇
-// import User from './User'
-// import users from './data/users-data';
-// import ingredientData from './data/ingredient-data';
-// import recipeData from './data/recipe-data';
-
-// NEW SCHOOL WAY THAT STOPS WORKING WHEN CLICK EVENT HAPPENS 👇
 import {
   users,
   ingredientData,
@@ -13,10 +6,6 @@ import {
 
 import Recipe from './Recipe';
 import RecipeRepository from './RecipeRepository'
-
-// Use this to see the difference between call stack vs. async task queue 👇
-// console.log(users);
-// setTimeout(() => console.log(users), 3000);
 
 import './images/apple-logo.png'
 import './images/apple-logo-outline.png'
@@ -44,12 +33,9 @@ const buttons = {
   showPantryRecipes: document.querySelector('.show-pantry-recipes-btn'),
 }
 
-// just for testing to see what event target is 🎯 👇
-// window.addEventListener('click', (event) => console.log(event.target))
-
-window.addEventListener('load', () => setTimeout(onLoad(), 1000));
-window.addEventListener('click', (event) => clickHandlers(event))
-searchForm.addEventListener('submit', (event) => searchRecipes(event));
+window.addEventListener('load', onLoad);
+window.addEventListener('click', clickHandlers);
+searchForm.addEventListener('submit', searchRecipes);
 
 function onLoad() {
   generateUser();
@@ -86,9 +72,7 @@ function clickHandlers(event) {
 
 // GENERATE A USER ON LOAD
 async function generateUser() {
-  // USE WHEN BRINGING BACK USER DATA W/ API CALLS 👇
-  user = users[0][Math.floor(Math.random() * users[0].length)];
-  // user = new User(users[Math.floor(Math.random() * users.length)]);
+  user = users[Math.floor(Math.random() * users.length)];
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
