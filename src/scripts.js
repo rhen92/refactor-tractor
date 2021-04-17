@@ -30,7 +30,6 @@ import './images/search.png'
 import './images/seasoning.png'
 import './css/base.scss';
 import './css/styles.scss';
-
 let pantryMenuOpen = false;
 let user;
 const fullRecipeInfo = document.querySelector('.recipe-instructions');
@@ -40,8 +39,8 @@ const searchForm = document.querySelector('#search');
 const buttons = {
   allRecipes: document.querySelector('.show-all-btn'),
   filter: document.querySelector('.filter-btn'),
-  pantry: document.querySelector('.my-pantry-btn'),
-  savedRecipes: document.querySelector('.saved-recipes-btn'),
+  pantry: document.querySelector('#pantry-btn'),
+  savedRecipes: document.querySelector('#saved-recipes-btn'),
   search: document.querySelector('.search-btn'),
   showPantryRecipes: document.querySelector('.show-pantry-recipes-btn'),
 }
@@ -253,6 +252,7 @@ function openRecipeInfo(event) {
   fullRecipeInfo.style.display = 'inline';
   let recipeId = event.path.find(e => e.id).id;
   let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
+  console.log(recipe);
   generateRecipeTitle(recipe, generateIngredients(recipe));
   addRecipeImage(recipe);
   generateInstructions(recipe);
@@ -273,7 +273,9 @@ function addRecipeImage(recipe) {
 }
 
 function generateIngredients(recipe) {
+  console.log(recipe.ingredients);
   return recipe && recipe.ingredients.map(i => {
+    console.log(i.name);
     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
   }).join(', ');
 }

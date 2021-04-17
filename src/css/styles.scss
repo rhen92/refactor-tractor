@@ -24,7 +24,7 @@ h1 {
 }
 
 h2 {
-  color: #84C8A4;
+  color: #508067;
   margin: 10px 0px 10px 0px;
 }
 
@@ -37,7 +37,7 @@ h3 {
 }
 
 h4 {
-  color: #359567;
+  color: #1B4E35;
   background-color: #C4EB67;
   border-radius: 3px;
   margin: 10px 0px 0px 0px;
@@ -55,15 +55,12 @@ header {
   width: 100%;
 }
 
-span {
-  color: #C4EB67;
-  font-weight: 400;
-}
-
 .header-apple-icon {
   height: 40px;
   margin-left: 5px;
   width: 35px;
+  color: #C4EB67;
+  font-weight: 400;
 }
 
 #search {
@@ -121,9 +118,7 @@ span {
 }
 
 .search-btn {
-  border-left: 3px outset #C4EB67;
   border-radius: 0px 15px 15px 0px;
-  padding: 1%;
 }
 
 .nav-btn {
@@ -136,12 +131,13 @@ span {
   font-size: 0px;
   font-weight: 700;
   justify-content: center;
-  margin: 0%;
   outline: none;
   overflow: hidden;
   text-align: center;
   transition: .4s ease;
   width: 15%;
+  margin: 1% 0%;
+  padding: 1px 6px 5px 0px;
 }
 
 .nav-btn:hover {
@@ -160,12 +156,6 @@ span {
 .saved-ingredients-btn {
   border-left: 3px solid #C4EB67;
 }
-
-.ing-pan-btn {
-  margin: 1% 0%;
-  padding: 1px 6px 5px 0px;
-}
-
 
 /* BANNER IMAGE*/
 .banner-image {
@@ -309,10 +299,10 @@ main {
 .show-pantry-recipes-btn,
 .show-all-btn,
 .filter-btn {
-  background-color: #359567;
+  background-color: #2BB271;
   border: 0;
   border-radius: 3px;
-  color: white;
+  color: #000506;
   cursor: pointer;
   font-family: "Quicksand", sans-serif;
   font-size: 12pt;
