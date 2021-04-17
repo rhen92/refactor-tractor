@@ -1,18 +1,15 @@
 // OLD SCHOOL WAY FOR REFERENCE ON WHAT PAGE SHOULD DO 👇
-import User from './User'
-import users from './data/users-data';
-import ingredientData from './data/ingredient-data';
-import recipeData from './data/recipe-data';
+// import User from './User'
+// import users from './data/users-data';
+// import ingredientData from './data/ingredient-data';
+// import recipeData from './data/recipe-data';
 
 // NEW SCHOOL WAY THAT STOPS WORKING WHEN CLICK EVENT HAPPENS 👇
-// import {
-//   users,
-//   ingredientData,
-//   recipeData,
-//   usersGET,
-//   ingredientsGET,
-//   recipesGET
-// } from './apiCalls'
+import {
+  users,
+  ingredientData,
+  recipeData,
+} from './apiCalls'
 
 import Recipe from './Recipe';
 import RecipeRepository from './RecipeRepository'
@@ -51,7 +48,7 @@ const buttons = {
 // just for testing to see what event target is 🎯 👇
 // window.addEventListener('click', (event) => console.log(event.target))
 
-window.addEventListener('load', onLoad);
+window.addEventListener('load', () => setTimeout(onLoad(), 1000));
 window.addEventListener('click', (event) => clickHandlers(event))
 searchForm.addEventListener('submit', (event) => searchRecipes(event));
 
@@ -89,10 +86,10 @@ function clickHandlers(event) {
 }
 
 // GENERATE A USER ON LOAD
-function generateUser() {
+async function generateUser() {
   // USE WHEN BRINGING BACK USER DATA W/ API CALLS 👇
-  // user = users[Math.floor(Math.random() * users.length)];
-  user = new User(users[Math.floor(Math.random() * users.length)]);
+  user = users[0][Math.floor(Math.random() * users.length)];
+  // user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -277,8 +274,10 @@ function addRecipeImage(recipe) {
 }
 
 function generateIngredients(recipe) {
-  return recipe && recipe.ingredients.map(i => {
-    return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
+  let ingredients = recipe.ingredients.sort((a, b) => a - b);
+  let ingredientNames = ingredients.map(ing => ingredientData.filter(i => i.id === ing.id).map(i => capitalize(i.name)).toString());
+  return ingredients.map((ing, index) => {
+    return `${ingredientNames[index]} (${ing.quantity.amount} ${ing.quantity.unit})`
   }).join(', ');
 }
 
@@ -332,11 +331,6 @@ function filterNonSearched(filtered) {
   })
   hideUnselectedRecipes(found);
 }
-
-// function createRecipeObject(recipes) {
-//   recipes = recipes.map(recipe => new Recipe(recipe, ingredientData));
-//   return recipes
-// }
 
 function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
@@ -408,7 +402,7 @@ function findRecipesWithCheckedIngredients(selected) {
   })
   recipes.forEach(recipe => {
     let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
+    recipe.ingredientData.forEach(ingredient => {
       allRecipeIngredients.push(ingredient.name);
     });
     if (!recipeChecker(allRecipeIngredients, ingredientList)) {

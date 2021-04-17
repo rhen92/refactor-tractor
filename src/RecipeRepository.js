@@ -14,9 +14,9 @@ class RecipeRepository {
   }
 
   filterRecipesByIngredient(keyword) {
-    const ingredientList = this.recipeList.map(rec => rec.ingredients).flat().map(ing => ing.name)
-    const filteredIngredientList = Array.from(new Set(ingredientList.filter(ing => ing.includes(keyword.toLowerCase()))))
-    return this.recipeList.filter(recipe => recipe.ingredients.some(ingredient => filteredIngredientList.includes(ingredient.name)))
+    const ingredientList = this.recipeList.map(rec => rec.ingredientData).flat().map(ing => ing.name)
+    const filteredIngredientList = ingredientList.filter(ing => ing.includes(keyword.toLowerCase()))
+    return this.recipeList.filter(recipe => recipe.ingredientData.some(ingredient => filteredIngredientList.includes(ingredient.name)))
   }
 }
 
