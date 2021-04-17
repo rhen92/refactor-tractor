@@ -319,12 +319,12 @@ function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
   let attr = buttons.pantry.getAttribute("aria-expanded");
   pantryMenuOpen = !pantryMenuOpen;
-  if (pantryMenuOpen && !attr) {
+  if (pantryMenuOpen && attr === 'false') {
     menuDropdown.style.display = 'block';
-    buttons.pantry[attr] = true;
+    buttons.pantry.setAttribute("aria-expanded", true);
   } else {
     menuDropdown.style.display = 'none';
-    buttons.pantry[attr] = false;
+    buttons.pantry.setAttribute("aria-expanded", false);
   }
 }
 
