@@ -1,5 +1,5 @@
 // OLD SCHOOL WAY FOR REFERENCE ON WHAT PAGE SHOULD DO 👇
-import User from './user'
+import User from './User'
 import users from './data/users-data';
 import ingredientData from './data/ingredient-data';
 import recipeData from './data/recipe-data';
@@ -14,7 +14,7 @@ import recipeData from './data/recipe-data';
 //   recipesGET
 // } from './apiCalls'
 
-import Recipe from './recipe';
+import Recipe from './Recipe';
 
 // Use this to see the difference between call stack vs. async task queue 👇
 // console.log(users);
