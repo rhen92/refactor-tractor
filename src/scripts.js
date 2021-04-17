@@ -87,7 +87,7 @@ function clickHandlers(event) {
 // GENERATE A USER ON LOAD
 async function generateUser() {
   // USE WHEN BRINGING BACK USER DATA W/ API CALLS 👇
-  user = users[0][Math.floor(Math.random() * users.length)];
+  user = users[0][Math.floor(Math.random() * users[0].length)];
   // user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
@@ -335,12 +335,12 @@ function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
   let attr = buttons.pantry.getAttribute("aria-expanded");
   pantryMenuOpen = !pantryMenuOpen;
-  if (pantryMenuOpen && !attr) {
+  if (pantryMenuOpen && attr === 'false') {
     menuDropdown.style.display = 'block';
-    buttons.pantry[attr] = true;
+    buttons.pantry.setAttribute("aria-expanded", true);
   } else {
     menuDropdown.style.display = 'none';
-    buttons.pantry[attr] = false;
+    buttons.pantry.setAttribute("aria-expanded", false);
   }
 }
 
