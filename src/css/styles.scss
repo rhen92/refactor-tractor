@@ -380,7 +380,7 @@ main {
   z-index: 1000;
 }
 
-#exit-recipe-btn {
+#close {
   background: white;
   border: 2px double #359567;
   border-radius: 5px;
@@ -393,7 +393,7 @@ main {
   transition: .3s ease;
 }
 
-#exit-recipe-btn:hover {
+#close:hover {
   background: #C4EB67;
   transition: .3s ease;
 }
