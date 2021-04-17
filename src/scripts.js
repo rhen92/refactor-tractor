@@ -28,7 +28,6 @@ import './images/search.png'
 import './images/seasoning.png'
 import './css/base.scss';
 import './css/styles.scss';
-
 let pantryMenuOpen = false;
 let user;
 let recipes;
@@ -39,8 +38,8 @@ const searchForm = document.querySelector('#search');
 const buttons = {
   allRecipes: document.querySelector('.show-all-btn'),
   filter: document.querySelector('.filter-btn'),
-  pantry: document.querySelector('.my-pantry-btn'),
-  savedRecipes: document.querySelector('.saved-recipes-btn'),
+  pantry: document.querySelector('#pantry-btn'),
+  savedRecipes: document.querySelector('#saved-recipes-btn'),
   search: document.querySelector('.search-btn'),
   showPantryRecipes: document.querySelector('.show-pantry-recipes-btn'),
 }
@@ -120,17 +119,17 @@ function createCards() {
 function addRecipeCardToDom(recipe, shortRecipeName) {
   const main = document.querySelector('main');
   let cardHtml = `
-    <div class="recipe-card" id="${recipe.id}">
+    <article tabindex="0" class="recipe-card" id="${recipe.id}">
       <h3 maxlength="40">${shortRecipeName}</h3>
       <div class="card-photo-container">
         <img src="${recipe.image}" class="card-photo-preview" alt="${recipe.name} recipe" title="${recipe.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
+        <button class="text">
+          <a>Click for Instructions</a>
+        </button>
       </div>
       <h4>${recipe.tags[0]}</h4>
       <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-    </div>`
+    </article>`
   main.insertAdjacentHTML('beforeend', cardHtml);
 }
 
@@ -334,11 +333,14 @@ function filterNonSearched(filtered) {
 
 function togglePantryMenu() {
   var menuDropdown = document.querySelector('.drop-menu');
+  let attr = buttons.pantry.getAttribute("aria-expanded");
   pantryMenuOpen = !pantryMenuOpen;
-  if (pantryMenuOpen) {
+  if (pantryMenuOpen && !attr) {
     menuDropdown.style.display = 'block';
+    buttons.pantry[attr] = true;
   } else {
     menuDropdown.style.display = 'none';
+    buttons.pantry[attr] = false;
   }
 }
 
