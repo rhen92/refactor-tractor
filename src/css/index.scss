@@ -4,7 +4,7 @@
 body {
   background-color: $primary-background;
   display: grid;
-  font-family: "Quicksand", sans-serif;
+  font-family: $quick-font;
   grid-template-columns: 1fr 5fr;
   grid-template-areas:
     "header header"
@@ -82,7 +82,7 @@ header {
   box-shadow: 0px 0px 7px 0px #475d74;
   display: flex;
   flex-direction: row;
-  font-family: "Quicksand", sans-serif;
+  font-family: $quick-font;
   justify-content: center;
   margin: 1.2% 0.5% 1.2% 0%;
   width: 100%;
@@ -95,7 +95,7 @@ header {
   border: none;
   box-shadow: inset -3px -1px 20px 1px #5c7894;
   color: $reef-blue;
-  font-family: "Quicksand", sans-serif;
+  font-family: $quick-font;
   font-size: 42px;
   height: 100%;
   outline: none;
@@ -241,6 +241,7 @@ main {
   align-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
+  overflow: scroll;
 }
 
 .recipe-card {
@@ -330,7 +331,7 @@ main {
   border-radius: 3px;
   color: #000506;
   cursor: pointer;
-  font-family: "Quicksand", sans-serif;
+  font-family: $quick-font;
   font-size: 12pt;
   font-weight: bold;
   padding: 5px 10px 5px 10px;
