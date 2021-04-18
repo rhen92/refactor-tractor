@@ -35,6 +35,7 @@ const buttons = {
 
 window.addEventListener('load', onLoad);
 window.addEventListener('click', clickHandlers);
+window.addEventListener('keyup', addRecipeToFavorites);
 searchForm.addEventListener('submit', searchRecipes);
 
 function onLoad() {
@@ -112,7 +113,7 @@ function addRecipeCardToDom(recipe, shortRecipeName) {
         </button>
       </div>
       <h4>${recipe.tags[0]}</h4>
-      <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
+      <img tabindex="0" src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
     </article>`
   main.insertAdjacentHTML('beforeend', cardHtml);
 }
@@ -200,13 +201,15 @@ function recipeCardManagement(event) {
 }
 
 function addRecipeToFavorites(event) {
-  let cardId = parseInt(event.target.closest('.recipe-card').id)
-  if (!user.favoriteRecipes.includes(cardId)) {
-    event.target.src = '../images/apple-logo.png';
-    user.saveRecipe(cardId);
-  } else {
-    event.target.src = '../images/apple-logo-outline.png';
-    user.removeRecipe(cardId);
+  if (event.keyCode === 13 || event instanceof MouseEvent) {
+    let cardId = parseInt(event.target.closest('.recipe-card').id)
+    if (!user.favoriteRecipes.includes(cardId)) {
+      event.target.src = '../images/apple-logo.png';
+      user.saveRecipe(cardId);
+    } else {
+      event.target.src = '../images/apple-logo-outline.png';
+      user.removeRecipe(cardId);
+    }
   }
 }
 
