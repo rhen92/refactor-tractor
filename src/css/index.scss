@@ -34,6 +34,15 @@ h1 {
   margin: 0%;
   padding: 0.5% 0.7% 0%;
   width: 70%;
+  @media screen and (max-width: 726px) {
+    font-size: 40px;
+    width: 60%;
+  }
+
+  @media screen and (max-width: 595px) {
+    font-size: 30px;
+    width: 50%;
+  }
 }
 
 h2 {
@@ -64,7 +73,6 @@ header {
   display: flex;
   flex-direction: row;
   grid-area: header;
-  padding: 0% 0%;
   width: 100%;
 }
 
