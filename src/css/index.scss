@@ -1,8 +1,8 @@
 @import 'normalize.css';
-@import './_mixins'
 @import './_variables';
+@import './_mixins';
 
-
+/* ~~~~~~~~ GLOBAL RULES ~~~~~~~~~ */
 body {
   background-color: $primary-background;
   display: grid;
@@ -24,9 +24,10 @@ body {
       "image"
       "aside"
       "main"
-
   }
 }
+
+/* ~~~~~~~~ HEADER ~~~~~~~~~ */
 
 h1 {
   align-self: center;
@@ -69,8 +70,6 @@ h4 {
   width: max-content;
 }
 
-
-/* HEADER */
 header {
   display: flex;
   flex-direction: row;
@@ -85,6 +84,8 @@ header {
   color: $pea-green;
   font-weight: 400;
 }
+
+/* ~~~~~~~~ SEARCH RULES ~~~~~~~~~ */
 
 #search {
   border-radius: 15px 15px 15px 15px;
@@ -153,6 +154,7 @@ header {
   border-radius: 0px 15px 15px 0px;
 }
 
+/* ~~~~~~~~ SEARCH BUTTONS ~~~~~~~~~ */
 .nav-btn {
   align-items: center;
   background: $reef-blue no-repeat;
@@ -199,7 +201,7 @@ header {
   border-left: 3px solid $pea-green;
 }
 
-/* BANNER IMAGE*/
+/* ~~~~~~~~ BANNER ~~~~~~~~~ */
 .banner-image {
   background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)),url("../images/green-apples.jpg");
   grid-area: image;
@@ -229,8 +231,7 @@ header {
   margin-top: 50px;
 }
 
-
-/* FILTER SIDEBAR */
+/* ~~~~~~~~ FILTER SIDEBAR ~~~~~~~~~ */
 aside {
   background-color: $white;
   display: flex;
@@ -262,8 +263,7 @@ li {
   margin: 2px;
 }
 
-
-/* RECIPE CARD SECTION */
+/* ~~~~~~~~ RECIPE CARDS ~~~~~~~~~ */
 main {
   grid-area: main;
   display: flex;
@@ -351,8 +351,7 @@ main {
   transition: .5s ease;
 }
 
-
-/* BUTTONS */
+/* ~~~~~~~~ REMAINING PAGE BUTTONS ~~~~~~~~~ */
 .show-pantry-recipes-btn,
 .show-all-btn,
 .filter-btn {
@@ -381,8 +380,7 @@ main {
   background-color: #84C8A4;
 }
 
-
-/* PANTRY LIST */
+/* ~~~~~~~~ PANTRY ~~~~~~~~~ */
 .drop-menu {
   align-items: center;
   background-color: #DAE4EE;
@@ -409,8 +407,7 @@ main {
   text-align: left;
 }
 
-
-/* RECIPE INSTRUCTIONS */
+/* ~~~~~~~~ RECIPE INSTRUCTIONS ~~~~~~~~~ */
 .recipe-instructions {
   background: $white;
   border: 3px solid $pea-green;
