@@ -11,3 +11,9 @@ displayFlexRow($direction: row) {
   display: flex;
   flex-direction: $direction;
 }
+
+@mixin
+widthAndOpacity($width: 100%, $opacity: 100%) {
+  width: $width;
+  opacity: $opacity;
+}
