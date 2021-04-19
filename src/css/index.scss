@@ -72,8 +72,8 @@ h4 {
 
 header {
   @include displayFlexRow();
+  @include widthAndOpacity();
   grid-area: header;
-  width: 100%;
 }
 
 .header-apple-icon {
@@ -88,13 +88,13 @@ header {
 
 #search {
   @include displayFlexRow();
+  @include widthAndOpacity();
   border-radius: 15px 15px 15px 15px;
   border: 3px outset $pea-green;
   box-shadow: 0px 0px 7px 0px #475d74;
   font-family: $quick-font;
   justify-content: center;
   margin: 1.2% 0.5% 1.2% 0%;
-  width: 100%;
 }
 
 #search-input {
@@ -217,7 +217,7 @@ header {
 .my-recipes-banner h1,
 .welcome-msg h1 {
   color: $white;
-  width: 100%;
+  @include widthAndOpacity();
 }
 
 .my-recipes-banner {
@@ -231,11 +231,10 @@ header {
 
 /* ~~~~~~~~ FILTER SIDEBAR ~~~~~~~~~ */
 aside {
-  @include centerFLexWithPaddingAndMargin();
+  @include centerFlexWithPaddingAndMargin();
   background-color: $white;
   height: auto;
   text-align: center;
-
 }
 
 .wrap {
@@ -286,10 +285,9 @@ main {
   }
 
   &:hover .text {
+    @include widthAndOpacity();
     font-size: 20px;
-    opacity: 100%;
     transition: .5s ease;
-    width: 100%;
   }
 
   &:hover h3 {
@@ -318,7 +316,7 @@ main {
 }
 
 .card-photo-container {
-  @include centerFLexWithPaddingAndMargin();
+  @include centerFlexWithPaddingAndMargin();
   align-items: center;
   height: 130px;
   position: relative;
@@ -338,12 +336,11 @@ main {
 }
 
 .text:focus-visible {
-  opacity: 100%;
+  @include widthAndOpacity();
   font-size: 20px;
   background-color: $eucalyptus;
   position: absolute;
   text-align: center;
-  width: 100%;
 }
 
 /* ~~~~~~~~ REMAINING PAGE BUTTONS ~~~~~~~~~ */
