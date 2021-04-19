@@ -4,10 +4,10 @@ import {
   recipeData,
 } from './apiCalls'
 
-// import {
-//   displayWelcome,
-//   displayPantryInfo
-// } from './domUpdates'
+import {
+  displayWelcome,
+  displayPantryInfo
+} from './domUpdates'
 
 import Recipe from './Recipe';
 import RecipeRepository from './RecipeRepository'
@@ -84,15 +84,15 @@ async function generateUser() {
 }
 
 // DOMMY
-function displayWelcome() {
-  let firstName = user.name.split(' ')[0];
-  let welcomeMsg = `
-    <div class="welcome-msg">
-      <h1>Welcome ${firstName}!</h1>
-    </div>`;
-  document.querySelector('.banner-image').insertAdjacentHTML('afterbegin',
-    welcomeMsg);
-}
+// function displayWelcome() {
+//   let firstName = user.name.split(' ')[0];
+//   let welcomeMsg = `
+//     <div class="welcome-msg">
+//       <h1>Welcome ${firstName}!</h1>
+//     </div>`;
+//   document.querySelector('.banner-image').insertAdjacentHTML('afterbegin',
+//     welcomeMsg);
+// }
 
 function generateRecipes() {
   recipes = recipeData.map(recipe => new Recipe(recipe, ingredientData));
@@ -380,14 +380,14 @@ function findPantryInfo() {
 }
 
 // DOMMY
-function displayPantryInfo(pantry) {
-  pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
-      <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
-    document.querySelector('.pantry-list').insertAdjacentHTML('beforeend',
-      ingredientHtml);
-  });
-}
+// function displayPantryInfo(pantry) {
+//   pantry.forEach(ingredient => {
+//     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
+//       <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
+//     document.querySelector('.pantry-list').insertAdjacentHTML('beforeend',
+//       ingredientHtml);
+//   });
+// }
 
 function findCheckedPantryBoxes() {
   let pantryCheckboxes = document.querySelectorAll('.pantry-checkbox');
@@ -418,3 +418,5 @@ function findRecipesWithCheckedIngredients(selected) {
     }
   })
 }
+
+export { user, recipes, recipeRepo }
