@@ -3,8 +3,8 @@ class RecipeRepository {
     this.recipeList = recipeData;
   }
 
-  filterRecipesByTag() {
-    return this.recipeList.filter(recipe => recipe.tags.includes(tag));
+  filterRecipesByTag(keyword) {
+    return this.recipeList.filter(recipe => recipe.tags.includes(keyword));
   }
 
   filterRecipesByName(keyword) {
