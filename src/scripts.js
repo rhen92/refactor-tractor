@@ -22,6 +22,7 @@ import {
 //   isDescendant,
 //   addRecipeToFavorites
 // } from './domUpdates'
+
 import * as exports from './domUpdates'
 Object.entries(exports).forEach(([name, exported]) => window[name] = exported);
 
@@ -58,6 +59,7 @@ window.addEventListener('click', clickHandlers);
 window.addEventListener('keyup', addRecipeToFavorites);
 searchForm.addEventListener('submit', searchRecipes);
 
+// HELPER FUNCTIONS FOR EVENTS
 function onLoad() {
   generateUser();
   generateRecipes();
