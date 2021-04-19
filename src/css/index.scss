@@ -115,6 +115,27 @@ header {
   transition: .8s ease;
   width: 100%;
 
+  &:hover {
+    box-shadow: inset 0px 0px 0px 0px $white;
+    transition: .8s ease;
+  }
+
+  &:focus {
+    box-shadow: inset 0px 0px 0px 0px $white;
+  }
+
+  &::placeholder {
+    color: $reef-blue;
+    font-size: 20px;
+    text-align: right;
+    text-shadow: none;
+  }
+
+  &:focus::placeholder {
+    font-size: 0px;
+    transition: .8s ease;
+  }
+
   @media screen and (max-width: 365px) {
     height: 76%;
     width: 76%;
@@ -123,27 +144,6 @@ header {
     display: flex;
     margin-bottom: 0;
   }
-}
-
-#search-input:hover {
-  box-shadow: inset 0px 0px 0px 0px $white;
-  transition: .8s ease;
-}
-
-#search-input:focus {
-  box-shadow: inset 0px 0px 0px 0px $white;
-}
-
-#search-input::placeholder {
-  color: $reef-blue;
-  font-size: 20px;
-  text-align: right;
-  text-shadow: none;
-}
-
-#search-input:focus::placeholder {
-  font-size: 0px;
-  transition: .8s ease;
 }
 
 .search-label {
@@ -171,31 +171,31 @@ header {
   width: 15%;
   margin: 1% 0%;
   padding: 1px 6px 5px 0px;
-}
 
-.nav-btn:hover {
-  color: $pea-green;
-  font-size: 14px;
-  text-shadow: 0px 2px 4px black;
-  transition: .4s ease;
-}
-
-.nav-btn img {
-  max-height: 40px;
-  max-width: 40px;
-  padding: 2px 0px;
-
-  @media screen and (max-width: 788px) {
-    max-height: 30px;
-    max-width: 30px;
+  &:hover {
+    color: $pea-green;
+    font-size: 14px;
+    text-shadow: 0px 2px 4px black;
+    transition: .4s ease;
   }
 
-  @media screen and (max-width: 481px) {
-    max-height: 23px;
-    max-width: 23px;
-  }
+  img {
+    max-height: 40px;
+    max-width: 40px;
+    padding: 2px 0px;
 
+    @media screen and (max-width: 788px) {
+      max-height: 30px;
+      max-width: 30px;
+    }
+
+    @media screen and (max-width: 481px) {
+      max-height: 23px;
+      max-width: 23px;
+    }
+  }
 }
+
 
 .saved-ingredients-btn {
   border-left: 3px solid $pea-green;
@@ -283,32 +283,23 @@ main {
   margin: 20px;
   padding: 15px;
   width: 250px;
-}
 
-.recipe-card:hover .card-photo-preview {
-  opacity: 50%;
-  transition: .8s ease;
-}
+  &:hover .card-photo-preview {
+    opacity: 50%;
+    transition: .8s ease;
+  }
 
-.recipe-card:hover .text {
-  font-size: 20px;
-  opacity: 100%;
-  transition: .5s ease;
-  width: 100%;
-}
+  &:hover .text {
+    font-size: 20px;
+    opacity: 100%;
+    transition: .5s ease;
+    width: 100%;
+  }
 
-.text:focus-visible {
-  opacity: 100%;
-  font-size: 20px;
-  background-color: $eucalyptus;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-}
-
-.recipe-card:hover h3 {
-  text-shadow: 0px 0px 4px $pea-green;
-  transition: .8s ease;
+  &:hover h3 {
+    text-shadow: 0px 0px 4px $pea-green;
+    transition: .8s ease;
+  }
 }
 
 .card-apple-icon {
@@ -349,6 +340,15 @@ main {
   text-align: center;
   width: 0%;
   transition: .5s ease;
+}
+
+.text:focus-visible {
+  opacity: 100%;
+  font-size: 20px;
+  background-color: $eucalyptus;
+  position: absolute;
+  text-align: center;
+  width: 100%;
 }
 
 /* ~~~~~~~~ REMAINING PAGE BUTTONS ~~~~~~~~~ */
@@ -394,12 +394,13 @@ main {
   text-align: center;
   width: 250px;
   z-index: 3;
+
+  h2 {
+    color: $eucalyptus;
+    margin: 0px;
+  }
 }
 
-.drop-menu h2 {
-  color: $eucalyptus;
-  margin: 0px;
-}
 
 .pantry-list {
   color: #000000;
@@ -423,16 +424,24 @@ main {
   top: 15%;
   width: 70%;
   z-index: 1000;
+
+  h4 {
+    background: $white;
+    color: $eucalyptus;
+  }
+
+  p {
+    margin-left: 2%;
+  }
+
+  ol {
+    margin-right: 2%;
+  }
 }
 
 #close {
-<<<<<<< HEAD:src/css/styles.scss
-  background: white;
-  border: 2px double #359567;
-=======
   background: $white;
   border: 2px double $eucalyptus;
->>>>>>> b42084fab46a2ea2aa7e243ec9ecc059a9efca77:src/css/index.scss
   border-radius: 5px;
   color: $eucalyptus;
   cursor: pointer;
@@ -441,15 +450,11 @@ main {
   margin: -4% -3% 2% -1%;
   position: fixed;
   transition: .3s ease;
-}
 
-#close:hover {
-<<<<<<< HEAD:src/css/styles.scss
-  background: #C4EB67;
-=======
-  background: $pea-green;
->>>>>>> b42084fab46a2ea2aa7e243ec9ecc059a9efca77:src/css/index.scss
-  transition: .3s ease;
+  &:hover {
+    background: $pea-green;
+    transition: .3s ease;
+  }
 }
 
 #recipe-title {
@@ -462,19 +467,6 @@ main {
   padding: 5%;
   text-align: center;
   text-shadow: 0px 0px 6px black;
-}
-
-.recipe-instructions h4 {
-  background: $white;
-  color: $eucalyptus;
-}
-
-.recipe-instructions p {
-  margin-left: 2%;
-}
-
-.recipe-instructions ol {
-  margin-right: 2%;
 }
 
 #overlay {
