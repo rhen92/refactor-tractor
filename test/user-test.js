@@ -1,21 +1,17 @@
 import { expect } from 'chai';
 import User from '../src/user';
-import data from '../src/data/users-data';
+import data from '../src/test-data/sample-users-data';
 
 describe('User', () => {
-  let user;
-  let userInfo;
-  let recipe;
+  let user, userInfo, recipe;
 
   beforeEach(() => {
     userInfo = data[0];
-    user = new User(userInfo)
-
+    user = new User(userInfo);
     recipe = {
       name: 'Chicken Parm',
       tags: ['italian', 'dinner']
     };
-
   });
 
   it('should be a function', () => {
@@ -50,15 +46,5 @@ describe('User', () => {
   it('should be able to decide to cook a recipe', () => {
     user.decideToCook(recipe);
     expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
-  });
-
-  it('should be able to filter recipes by tag', () => {
-    user.saveRecipe(recipe);
-    expect(user.filterRecipesByTag('italian')).to.deep.equal([recipe]);
-  });
-
-  it('should be able to search recipes by name', () => {
-    user.saveRecipe(recipe);
-    expect(user.searchForRecipeByIngredient('Chicken Parm')).to.deep.equal([recipe]);
   });
 });

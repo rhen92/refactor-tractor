@@ -19,14 +19,6 @@ class User {
   decideToCook(recipe) {
     this.recipesToCook.push(recipe);
   }
-
-  // filterRecipesByTag(tag) {
-  //   return this.favoriteRecipes.filter(recipe => recipe.tags.includes(tag));
-  // }
-
-  // searchForRecipeByIngredient(keyword) {
-  //   return this.favoriteRecipes.filter(recipe => recipe.name.includes(keyword) || recipe.ingredients.includes(keyword));
-  // }
 }
 
 module.exports = User;
