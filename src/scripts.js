@@ -72,7 +72,7 @@ function clickHandlers(event) {
 }
 
 // GENERATE A USER ON LOAD
-async function generateUser() {
+function generateUser() {
   user = users[Math.floor(Math.random() * users.length)];
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
