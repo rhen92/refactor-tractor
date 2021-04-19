@@ -1,10 +1,12 @@
 import {
   user,
   recipes,
-  recipeRepo,
   capitalize,
-  fullRecipeInfo
+  fullRecipeInfo,
+  buttons,
 } from './scripts'
+
+let pantryMenuOpen = false;
 
 const renderWelcome = () => {
   let firstName = user.name.split(' ')[0];
@@ -106,4 +108,83 @@ function showWelcomeBanner() {
   document.querySelector('.my-recipes-banner').style.display = 'none';
 }
 
-export { renderWelcome, displayPantryInfo, addRecipeCardToDom, listTags, hideUnselectedRecipes, showSavedRecipes, renderShowAllRecipesBanner, generateRecipeTitle, addRecipeImage, exitRecipe, showWelcomeBanner }
+function togglePantryMenu() {
+  var menuDropdown = document.querySelector('.drop-menu');
+  let attr = buttons.pantry.getAttribute("aria-expanded");
+  pantryMenuOpen = !pantryMenuOpen;
+  if (pantryMenuOpen && attr === 'false') {
+    menuDropdown.style.display = 'block';
+    buttons.pantry.setAttribute("aria-expanded", true);
+  } else {
+    menuDropdown.style.display = 'none';
+    buttons.pantry.setAttribute("aria-expanded", false);
+  }
+}
+
+function showAllRecipes() {
+  recipes.forEach(recipe => {
+    let domRecipe = document.getElementById(`${recipe.id}`);
+    domRecipe.style.display = 'block';
+  });
+  showWelcomeBanner();
+}
+
+function generateInstructions(recipe) {
+  let instructionsList = '';
+  let instructions = recipe.instructions.map(i => {
+    return i.instruction
+  });
+  instructions.forEach(i => {
+    instructionsList += `<li>${i}</li>`
+  });
+  fullRecipeInfo.insertAdjacentHTML('beforeend', '<h4>Instructions</h4>');
+  fullRecipeInfo.insertAdjacentHTML('beforeend', `<ol>${instructionsList}</ol>`);
+}
+
+function recipeInfoOverlay(domElement) {
+  domElement.insertAdjacentHTML('beforebegin', '<section id="overlay"></div>');
+}
+
+function isDescendant(parent, child) {
+  let node = child;
+  while (node !== null) {
+    if (node === parent) {
+      return true;
+    }
+    node = node.parentNode;
+  }
+  return false;
+}
+
+function addRecipeToFavorites(event) {
+  if (event.keyCode === 13 || event instanceof MouseEvent) {
+    let cardId = parseInt(event.target.closest('.recipe-card').id)
+    if (!user.favoriteRecipes.includes(cardId)) {
+      event.target.src = '../images/apple-logo.png';
+      user.saveRecipe(cardId);
+    } else {
+      event.target.src = '../images/apple-logo-outline.png';
+      user.removeRecipe(cardId);
+    }
+  }
+}
+
+export {
+  renderWelcome,
+  displayPantryInfo,
+  addRecipeCardToDom,
+  listTags,
+  hideUnselectedRecipes,
+  showSavedRecipes,
+  renderShowAllRecipesBanner,
+  generateRecipeTitle,
+  addRecipeImage,
+  exitRecipe,
+  showWelcomeBanner,
+  togglePantryMenu,
+  showAllRecipes,
+  generateInstructions,
+  recipeInfoOverlay,
+  isDescendant,
+  addRecipeToFavorites
+}

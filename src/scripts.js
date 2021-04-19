@@ -15,7 +15,12 @@ import {
   generateRecipeTitle,
   addRecipeImage,
   exitRecipe,
-  showWelcomeBanner
+  togglePantryMenu,
+  showAllRecipes,
+  generateInstructions,
+  recipeInfoOverlay,
+  isDescendant,
+  addRecipeToFavorites
 } from './domUpdates'
 
 import Recipe from './Recipe';
@@ -31,7 +36,6 @@ import './images/search.png'
 import './images/seasoning.png'
 import './css/index.scss';
 
-let pantryMenuOpen = false;
 let user;
 let recipes;
 let recipeRepo;
@@ -92,6 +96,7 @@ async function generateUser() {
   findPantryInfo();
 }
 
+// GENERATE RECIPES ON LOAD
 function generateRecipes() {
   recipes = recipeData.map(recipe => new Recipe(recipe, ingredientData));
   recipeRepo = new RecipeRepository(recipes);
@@ -160,6 +165,7 @@ function filterRecipes(filtered) {
   hideUnselectedRecipes(foundRecipes)
 }
 
+// CONTROL RECIPE CARD INTERACTIONS
 function recipeCardManagement(event) {
   switch (true) {
     case event.target.className === 'card-apple-icon':
@@ -174,30 +180,6 @@ function recipeCardManagement(event) {
   }
 }
 
-function addRecipeToFavorites(event) {
-  if (event.keyCode === 13 || event instanceof MouseEvent) {
-    let cardId = parseInt(event.target.closest('.recipe-card').id)
-    if (!user.favoriteRecipes.includes(cardId)) {
-      event.target.src = '../images/apple-logo.png';
-      user.saveRecipe(cardId);
-    } else {
-      event.target.src = '../images/apple-logo-outline.png';
-      user.removeRecipe(cardId);
-    }
-  }
-}
-
-function isDescendant(parent, child) {
-  let node = child;
-  while (node !== null) {
-    if (node === parent) {
-      return true;
-    }
-    node = node.parentNode;
-  }
-  return false;
-}
-
 // CREATE RECIPE INSTRUCTIONS
 function openRecipeInfo(event) {
   fullRecipeInfo.style.display = 'inline';
@@ -206,7 +188,7 @@ function openRecipeInfo(event) {
   generateRecipeTitle(recipe, generateIngredients(recipe), event);
   addRecipeImage(recipe);
   generateInstructions(recipe);
-  fullRecipeInfo.insertAdjacentHTML('beforebegin', '<section id="overlay"></div>');
+  recipeInfoOverlay(fullRecipeInfo)
 }
 
 function generateIngredients(recipe) {
@@ -216,25 +198,6 @@ function generateIngredients(recipe) {
     return `${ingredientNames[index]} (${ing.quantity.amount} ${ing.quantity.unit})`
   }).join(', ');
 }
-
-function generateInstructions(recipe) {
-  let instructionsList = '';
-  let instructions = recipe.instructions.map(i => {
-    return i.instruction
-  });
-  instructions.forEach(i => {
-    instructionsList += `<li>${i}</li>`
-  });
-  fullRecipeInfo.insertAdjacentHTML('beforeend', '<h4>Instructions</h4>');
-  fullRecipeInfo.insertAdjacentHTML('beforeend', `<ol>${instructionsList}</ol>`);
-}
-
-// TOGGLE DISPLAYS
-
-// function showWelcomeBanner() {
-//   document.querySelector('.welcome-msg').style.display = 'flex';
-//   document.querySelector('.my-recipes-banner').style.display = 'none';
-// }
 
 // SEARCH RECIPES
 
@@ -255,27 +218,6 @@ function filterNonSearched(filtered) {
     return !ids.includes(recipe.id)
   })
   hideUnselectedRecipes(found);
-}
-
-function togglePantryMenu() {
-  var menuDropdown = document.querySelector('.drop-menu');
-  let attr = buttons.pantry.getAttribute("aria-expanded");
-  pantryMenuOpen = !pantryMenuOpen;
-  if (pantryMenuOpen && attr === 'false') {
-    menuDropdown.style.display = 'block';
-    buttons.pantry.setAttribute("aria-expanded", true);
-  } else {
-    menuDropdown.style.display = 'none';
-    buttons.pantry.setAttribute("aria-expanded", false);
-  }
-}
-
-function showAllRecipes() {
-  recipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = 'block';
-  });
-  showWelcomeBanner();
 }
 
 // CREATE AND USE PANTRY
@@ -336,5 +278,6 @@ export {
   recipes,
   recipeRepo,
   capitalize,
-  fullRecipeInfo
+  fullRecipeInfo,
+  buttons,
 }
