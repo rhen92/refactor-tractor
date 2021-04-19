@@ -4,6 +4,11 @@ import {
   recipeData,
 } from './apiCalls'
 
+// import {
+//   displayWelcome,
+//   displayPantryInfo
+// } from './domUpdates'
+
 import Recipe from './Recipe';
 import RecipeRepository from './RecipeRepository'
 
@@ -41,6 +46,7 @@ searchForm.addEventListener('submit', searchRecipes);
 function onLoad() {
   generateUser();
   generateRecipes();
+  displayWelcome();
   createCards();
   findTags();
 }
@@ -72,8 +78,13 @@ function clickHandlers(event) {
 }
 
 // GENERATE A USER ON LOAD
-function generateUser() {
+async function generateUser() {
   user = users[Math.floor(Math.random() * users.length)];
+  findPantryInfo();
+}
+
+// DOMMY
+function displayWelcome() {
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -81,7 +92,6 @@ function generateUser() {
     </div>`;
   document.querySelector('.banner-image').insertAdjacentHTML('afterbegin',
     welcomeMsg);
-  findPantryInfo();
 }
 
 function generateRecipes() {
@@ -255,8 +265,8 @@ function generateRecipeTitle(recipe, ingredients, event) {
   fullRecipeInfo.insertAdjacentHTML('beforeend', recipeTitle);
   const close = document.getElementById('close');
   close.focus();
-  close.addEventListener('keydown', function(event) {
-    if(event.keyCode === 9) {
+  close.addEventListener('keydown', function (event) {
+    if (event.keyCode === 9) {
       event.preventDefault();
     }
   })
@@ -369,6 +379,7 @@ function findPantryInfo() {
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
+// DOMMY
 function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {
     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
