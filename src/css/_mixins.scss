@@ -1,19 +1,19 @@
-// @mixin
-// displayFlexWithPaddingAndMargin($padding: 0, $margin: 0, $direction: row) {
-//   display: flex;
-//   flex-direction: $direction;
-//
-//   @if $padding != 0 {
-//     padding: $padding;
-//   }
-//
-//   @if $margin != 0 {
-//     margin: $margin;
-//   }
-// }
-//There are 12 display: flex; flex-direciton: row; rules in the index.scss file
-//The proportions for margin need to stay simple, so it can't go in all 12... but this could be the instance of refactor to add a uniform mixin
+@mixin
+centerFlexWithPaddingAndMargin($padding: 0, $margin: 0, $direction: center) {
+  display: flex;
+  justify-content: $direction;
+  margin: $margin;
+  padding: $padding;
+}
 
-//this mixin is not currently applied
+@mixin
+displayFlexRow($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}
 
-//possible discussion point here:  should we make this an extend instead?
+@mixin
+widthAndOpacity($width: 100%, $opacity: 100%) {
+  width: $width;
+  opacity: $opacity;
+}
