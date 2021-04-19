@@ -6,7 +6,7 @@ import {
   fullRecipeInfo
 } from './scripts'
 
-const displayWelcome = () => {
+const renderWelcome = () => {
   let firstName = user.name.split(' ')[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -101,4 +101,9 @@ function exitRecipe() {
   document.getElementById('overlay').remove();
 }
 
-export { displayWelcome, displayPantryInfo, addRecipeCardToDom, listTags, hideUnselectedRecipes, showSavedRecipes, renderShowAllRecipesBanner, generateRecipeTitle, addRecipeImage, exitRecipe }
+function showWelcomeBanner() {
+  document.querySelector('.welcome-msg').style.display = 'flex';
+  document.querySelector('.my-recipes-banner').style.display = 'none';
+}
+
+export { renderWelcome, displayPantryInfo, addRecipeCardToDom, listTags, hideUnselectedRecipes, showSavedRecipes, renderShowAllRecipesBanner, generateRecipeTitle, addRecipeImage, exitRecipe, showWelcomeBanner }

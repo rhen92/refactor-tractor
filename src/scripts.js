@@ -5,7 +5,7 @@ import {
 } from './apiCalls'
 
 import {
-  displayWelcome,
+  renderWelcome,
   displayPantryInfo,
   addRecipeCardToDom,
   listTags,
@@ -14,7 +14,8 @@ import {
   renderShowAllRecipesBanner,
   generateRecipeTitle,
   addRecipeImage,
-  exitRecipe
+  exitRecipe,
+  showWelcomeBanner
 } from './domUpdates'
 
 import Recipe from './Recipe';
@@ -54,7 +55,7 @@ searchForm.addEventListener('submit', searchRecipes);
 function onLoad() {
   generateUser();
   generateRecipes();
-  displayWelcome();
+  renderWelcome();
   createCards();
   findTags();
 }
@@ -230,10 +231,10 @@ function generateInstructions(recipe) {
 
 // TOGGLE DISPLAYS
 
-function showWelcomeBanner() {
-  document.querySelector('.welcome-msg').style.display = 'flex';
-  document.querySelector('.my-recipes-banner').style.display = 'none';
-}
+// function showWelcomeBanner() {
+//   document.querySelector('.welcome-msg').style.display = 'flex';
+//   document.querySelector('.my-recipes-banner').style.display = 'none';
+// }
 
 // SEARCH RECIPES
 
