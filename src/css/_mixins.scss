@@ -5,3 +5,9 @@ centerFlexWithPaddingAndMargin($padding: 0, $margin: 0, $direction: center) {
   margin: $margin;
   padding: $padding;
 }
+
+@mixin
+displayFlexRow($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}
