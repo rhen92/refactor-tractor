@@ -4,24 +4,26 @@ import {
   recipeData,
 } from './apiCalls'
 
-import {
-  renderWelcome,
-  displayPantryInfo,
-  addRecipeCardToDom,
-  listTags,
-  hideUnselectedRecipes,
-  showSavedRecipes,
-  renderShowAllRecipesBanner,
-  generateRecipeTitle,
-  addRecipeImage,
-  exitRecipe,
-  togglePantryMenu,
-  showAllRecipes,
-  generateInstructions,
-  recipeInfoOverlay,
-  isDescendant,
-  addRecipeToFavorites
-} from './domUpdates'
+// import {
+//   renderWelcome,
+//   displayPantryInfo,
+//   addRecipeCardToDom,
+//   listTags,
+//   hideUnselectedRecipes,
+//   showSavedRecipes,
+//   renderShowAllRecipesBanner,
+//   generateRecipeTitle,
+//   addRecipeImage,
+//   exitRecipe,
+//   togglePantryMenu,
+//   showAllRecipes,
+//   generateInstructions,
+//   recipeInfoOverlay,
+//   isDescendant,
+//   addRecipeToFavorites
+// } from './domUpdates'
+import * as exports from './domUpdates'
+Object.entries(exports).forEach(([name, exported]) => window[name] = exported);
 
 import Recipe from './Recipe';
 import RecipeRepository from './RecipeRepository'
