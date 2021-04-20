@@ -73,6 +73,9 @@ npm install
 * Pantry should be more screen responsive
 * Use of class inheritance for *DRY*
 
+## Preview
+
+[glance ahead at project]
 
 ## Deployed Site
 
