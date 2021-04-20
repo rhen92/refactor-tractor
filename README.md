@@ -58,7 +58,7 @@ In this project we were given a pre-existing codebase to refactor & implement ne
 
 ## Preview
 
-[glance ahead at project]
+![Preview](https://media.giphy.com/media/76Tdv5wicNfvBCSkiV/giphy.gif)
 
 ## Deployed Site
 
