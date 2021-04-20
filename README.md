@@ -63,7 +63,7 @@ In this project we were given a pre-existing codebase to refactor & implement ne
 ## Deployed Site
 
 [What's Cookin](https://rhen92.github.io/refactor-tractor/)
-(make sure you have this server & the What's Cookin API running on your local machine)
+(make sure you have the What's Cookin API running on your local machine)
 
 ## Contributors
 
