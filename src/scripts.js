@@ -50,27 +50,27 @@ function onLoad() {
 
 function clickHandlers(event) {
   switch (event.target) {
-    case buttons.allRecipes:
-      showAllRecipes()
-      break;
-    case buttons.filter:
-      findCheckedBoxes()
-      break;
-    case buttons.pantry:
-      togglePantryMenu()
-      break;
-    case buttons.savedRecipes:
-      showSavedRecipes()
-      break;
-    case buttons.search:
-      searchRecipes(event)
-      break;
-    case buttons.showPantryRecipes:
-      findCheckedPantryBoxes()
-      break;
-    default:
-      recipeCardManagement(event)
-      break;
+  case buttons.allRecipes:
+    showAllRecipes()
+    break;
+  case buttons.filter:
+    findCheckedBoxes()
+    break;
+  case buttons.pantry:
+    togglePantryMenu()
+    break;
+  case buttons.savedRecipes:
+    showSavedRecipes()
+    break;
+  case buttons.search:
+    searchRecipes(event)
+    break;
+  case buttons.showPantryRecipes:
+    findCheckedPantryBoxes()
+    break;
+  default:
+    recipeCardManagement(event)
+    break;
   }
 }
 
@@ -147,15 +147,15 @@ function filterRecipes(filtered) {
 
 function recipeCardManagement(event) {
   switch (true) {
-    case event.target.className === 'card-apple-icon':
-      addRecipeToFavorites(event);
-      break;
-    case isDescendant(event.target.closest('.recipe-card'), event.target):
-      openRecipeInfo(event);
-      break;
-    case event.target.id === 'close':
-      exitRecipe();
-      break
+  case event.target.className === 'card-apple-icon':
+    addRecipeToFavorites(event);
+    break;
+  case isDescendant(event.target.closest('.recipe-card'), event.target):
+    openRecipeInfo(event);
+    break;
+  case event.target.id === 'close':
+    exitRecipe();
+    break
   }
 }
 
