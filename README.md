@@ -37,10 +37,6 @@ In this project we were given a pre-existing codebase to refactor & implement ne
 * To run the tests enter `npm test` in command line
 * To run the linter enter `npm run lint` in command line
 
-## Project link
-
-[Repo](https://github.com/rhen92/refactor-tractor)
-
 ## Contributors
 
 * [Chris Anderson](https://github.com/mistercanderson)
