@@ -13,6 +13,7 @@
 * `ARIA`
 * `Webpack`
 * `Fetch`
+
 ## Goals & Objectives
 
 * Build on top of existing code that no one on our team wrote
@@ -25,3 +26,27 @@
 ## Overview
 
 This project offered a chance to dive into someone else's code as a team. Beyond implementing all our new technologies, we explored a new code base long enough to what it truly needed to function more fluidly.
+
+## Setup
+
+* Clone down this Refactor-Tractor repo
+* Then install the library dependencies. Run:
+```bash
+npm install
+```
+* To review our code open in your text editor
+* Run `npm start` in your terminal to start the server
+* In another tab in your computer, clone down this [link here] repo as well
+* Run `npm start` on that server as well
+* To view the page to `http://localhost:8080/` to view the page
+* To test the code open another tab in the Refactor Tractor file and run `npm test`
+
+## Project link
+
+[Repo](https://github.com/rhen92/refactor-tractor)
+
+## Contributors
+
+* [Chris Anderson](https://github.com/mistercanderson)
+* [Rachel Hendricks](https://github.com/rhen92)
+* [Angela Battillo](https://github.com/battan40)
