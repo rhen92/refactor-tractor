@@ -37,12 +37,6 @@ In this project we were given a pre-existing codebase to refactor & implement ne
 * To run the tests enter `npm test` in command line
 * To run the linter enter `npm run lint` in command line
 
-## Contributors
-
-* [Chris Anderson](https://github.com/mistercanderson)
-* [Rachel Hendricks](https://github.com/rhen92)
-* [Angela Battillo](https://github.com/battan40)
-
 ## Project Goals
 
 * Fetch & manipulate API data from a server
@@ -71,3 +65,9 @@ In this project we were given a pre-existing codebase to refactor & implement ne
 [GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
 
 If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+
+## Contributors
+
+* [Chris Anderson](https://github.com/mistercanderson)
+* [Rachel Hendricks](https://github.com/rhen92)
+* [Angela Battillo](https://github.com/battan40)
