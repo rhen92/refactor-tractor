@@ -62,9 +62,8 @@ In this project we were given a pre-existing codebase to refactor & implement ne
 
 ## Deployed Site
 
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+[What's Cookin](https://rhen92.github.io/refactor-tractor/)
+(make sure you have this server & the What's Cookin API running on your local machine)
 
 ## Contributors
 
