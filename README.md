@@ -4,13 +4,13 @@
 
 ## Technologies Used
 
-* `javaScript`
+* `JavaScript`
 * `HTML`
 * `SCSS`
 * `TDD`
 * `ARIA`
 * `Webpack`
-* `Fetch`
+* `JS Fetch() API`
 
 ## Overview
 
