@@ -1,7 +1,5 @@
 # Refactor - Tractor
 
-#### A Chance To Find Out If You Have The Salt;
-
 *Work on this project has slowed or stopped completely. Deadline 4/20/2021, 9pm MST.*
 
 ## Technologies Used
@@ -14,6 +12,10 @@
 * `Webpack`
 * `Fetch`
 
+## Overview
+
+In this project we were given a pre-existing codebase to refactor & implement new technologies. Our main objectives were to use `fetch()` Web API calls for data manipulation, increase accessibility, make the file structure more modular, & use a CSS pre-processor.
+
 ## Goals & Objectives
 
 * Build on top of existing code that no one on our team wrote
@@ -23,17 +25,10 @@
 * Leverage `Sass` to clean `CSS`
 * Utilize Webpack to streamline all work flow
 
-## Overview
-
-In this project we were given a pre-existing codebase to refactor & implement new technologies. Our main objectives were to use `fetch()` Web API calls for data manipulation, increase accessibility, make the file structure more modular, & use a CSS pre-processor.
-
 ## Setup
 
 1. Clone down this **Refactor-Tractor** repo
-2. Using your command line, install dependencies using NPM:
-```bash
-npm install
-```
+2. Using your command line, install dependencies using NPM by entering `npm install`
 3. Get the local server going by running `npm start`
 4. In a separate directory outside Refactor Tractor, clone down this [What's Cookin API](https://github.com/turingschool-examples/whats-cookin-api)
 5. Follow the instructions from the What's Cookin API to get the server active using `npm start` in command line
