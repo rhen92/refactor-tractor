@@ -4,11 +4,11 @@
 
 *Work on this project has slowed or stopped completely. Deadline 4/20/2021, 9pm MST.*
 
-##Technologies Used
+## Technologies Used
 
 * `javaScript`
 * `HTML`
-* `Sass`
+* `SCSS`
 * `TDD`
 * `ARIA`
 * `Webpack`
@@ -25,21 +25,22 @@
 
 ## Overview
 
-This project offered a chance to dive into someone else's code as a team. Beyond implementing all our new technologies, we explored a new code base long enough to what it truly needed to function more fluidly.
+In this project we were given a pre-existing codebase to refactor & implement new technologies. Our main objectives were to use `fetch()` Web API calls for data manipulation, increase accessibility, make the file structure more modular, & use a CSS pre-processor.
 
 ## Setup
 
-* Clone down this Refactor-Tractor repo
-* Then install the library dependencies. Run:
+1. Clone down this **Refactor-Tractor** repo
+2. Using your command line, install dependencies using NPM:
 ```bash
 npm install
 ```
-* To review our code open in your text editor
-* Run `npm start` in your terminal to start the server
-* In another tab in your computer, clone down this [link here] repo as well
-* Run `npm start` on that server as well
-* To view the page to `http://localhost:8080/` to view the page
-* To test the code open another tab in the Refactor Tractor file and run `npm test`
+3. Get the local server going by running `npm start`
+4. In a separate directory outside Refactor Tractor, clone down this [What's Cookin API](https://github.com/turingschool-examples/whats-cookin-api)
+5. Follow the instructions from the What's Cookin API to get the server active using `npm start` in command line
+6. To view the page enter `http://localhost:8080/` in your browser
+
+* To run the tests enter `npm test` in command line
+* To run the linter enter `npm run lint` in command line
 
 ## Project link
 
@@ -51,31 +52,28 @@ npm install
 * [Rachel Hendricks](https://github.com/rhen92)
 * [Angela Battillo](https://github.com/battan40)
 
-## Functionality Goals
+## Project Goals
 
-* Fetch API data from a local server
-* Proper POST error handling
-* Fully functioning input fields on client-side interface
-* Refactor for *DRY* all files
-* Refactor for dynamic method use
-* All `DOM` manipulation should be reorganized into its own `domUpdates.js` file
+* Fetch & manipulate API data from a server
+* Refactor functions for improved readability
+* Separate file structure for increased modularity
 * Refactor `CSS` utilizing `Sass`, `normalize`
-* App should be fully responsive to all screen sizes
-* Optimize accessibility for UI/UX to as close to 100% as possible
-* Robust happy/sad path testing suite
+* App should be fully responsive
+* Optimize accessibility to 100%
+* Unit testing for classes
 
 ## Road Map
 ##### Future Iterations Should Include:
 
 * A user log in
+* Ability to POST data to the pantry
 * A video of how to/we navigate through the app via keyboard and screen reader
-* Animation for better UI/UX
-* Pantry should be more screen responsive
-* Use of class inheritance for *DRY*
+* Improve UI/UX
+* Increased separation of class methods
 
 ## Preview
 
-![Preview](https://media.giphy.com/media/76Tdv5wicNfvBCSkiV/giphy.gif)
+[glance ahead at project]
 
 ## Deployed Site
 
