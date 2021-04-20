@@ -75,7 +75,7 @@ npm install
 
 ## Preview
 
-[glance ahead at project]
+![Preview](https://media.giphy.com/media/76Tdv5wicNfvBCSkiV/giphy.gif)
 
 ## Deployed Site
 
