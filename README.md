@@ -50,3 +50,16 @@ npm install
 * [Chris Anderson](https://github.com/mistercanderson)
 * [Rachel Hendricks](https://github.com/rhen92)
 * [Angela Battillo](https://github.com/battan40)
+
+## Functionality Goals
+
+* Fetch API data from a local server
+* Proper POST error handling
+* Fully functioning input fields on client-side interface
+* Refactor for *DRY* all files
+* Refactor for dynamic method use
+* All `DOM` manipulation should be reorganized into its own `domUpdates.js` file
+* Refactor `CSS` utilizing `Sass`, `normalize`
+* App should be fully responsive to all screen sizes
+* Optimize accessibility for UI/UX to as close to 100% as possible
+* Robust happy/sad path testing suite
