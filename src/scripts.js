@@ -4,25 +4,6 @@ import {
   recipeData,
 } from './apiCalls'
 
-// import {
-//   renderWelcome,
-//   displayPantryInfo,
-//   addRecipeCardToDom,
-//   listTags,
-//   hideUnselectedRecipes,
-//   showSavedRecipes,
-//   renderShowAllRecipesBanner,
-//   generateRecipeTitle,
-//   addRecipeImage,
-//   exitRecipe,
-//   togglePantryMenu,
-//   showAllRecipes,
-//   generateInstructions,
-//   recipeInfoOverlay,
-//   isDescendant,
-//   addRecipeToFavorites
-// } from './domUpdates'
-
 import * as exports from './domUpdates'
 Object.entries(exports).forEach(([name, exported]) => window[name] = exported);
 
@@ -59,7 +40,6 @@ window.addEventListener('click', clickHandlers);
 window.addEventListener('keyup', addRecipeToFavorites);
 searchForm.addEventListener('submit', searchRecipes);
 
-// HELPER FUNCTIONS FOR EVENTS
 function onLoad() {
   generateUser();
   generateRecipes();
@@ -70,43 +50,40 @@ function onLoad() {
 
 function clickHandlers(event) {
   switch (event.target) {
-    case buttons.allRecipes:
-      showAllRecipes()
-      break;
-    case buttons.filter:
-      findCheckedBoxes()
-      break;
-    case buttons.pantry:
-      togglePantryMenu()
-      break;
-    case buttons.savedRecipes:
-      showSavedRecipes()
-      break;
-    case buttons.search:
-      searchRecipes(event)
-      break;
-    case buttons.showPantryRecipes:
-      findCheckedPantryBoxes()
-      break;
-    default:
-      recipeCardManagement(event)
-      break;
+  case buttons.allRecipes:
+    showAllRecipes()
+    break;
+  case buttons.filter:
+    findCheckedBoxes()
+    break;
+  case buttons.pantry:
+    togglePantryMenu()
+    break;
+  case buttons.savedRecipes:
+    showSavedRecipes()
+    break;
+  case buttons.search:
+    searchRecipes(event)
+    break;
+  case buttons.showPantryRecipes:
+    findCheckedPantryBoxes()
+    break;
+  default:
+    recipeCardManagement(event)
+    break;
   }
 }
 
-// GENERATE A USER ON LOAD
-async function generateUser() {
+function generateUser() {
   user = users[Math.floor(Math.random() * users.length)];
   findPantryInfo();
 }
 
-// GENERATE RECIPES ON LOAD
 function generateRecipes() {
   recipes = recipeData.map(recipe => new Recipe(recipe, ingredientData));
   recipeRepo = new RecipeRepository(recipes);
 }
 
-// CREATE RECIPE CARDS
 function createCards() {
   recipes.forEach(recipe => {
     let shortRecipeName = recipe.name;
@@ -117,7 +94,6 @@ function createCards() {
   });
 }
 
-// FILTER BY RECIPE TAGS
 function findTags() {
   let tags = [];
   let recipeTagLists = recipes.map(recipe => recipe.tags);
@@ -169,22 +145,20 @@ function filterRecipes(filtered) {
   hideUnselectedRecipes(foundRecipes)
 }
 
-// CONTROL RECIPE CARD INTERACTIONS
 function recipeCardManagement(event) {
   switch (true) {
-    case event.target.className === 'card-apple-icon':
-      addRecipeToFavorites(event);
-      break;
-    case isDescendant(event.target.closest('.recipe-card'), event.target):
-      openRecipeInfo(event);
-      break;
-    case event.target.id === 'close':
-      exitRecipe();
-      break
+  case event.target.className === 'card-apple-icon':
+    addRecipeToFavorites(event);
+    break;
+  case isDescendant(event.target.closest('.recipe-card'), event.target):
+    openRecipeInfo(event);
+    break;
+  case event.target.id === 'close':
+    exitRecipe();
+    break
   }
 }
 
-// CREATE RECIPE INSTRUCTIONS
 function openRecipeInfo(event) {
   fullRecipeInfo.style.display = 'inline';
   let recipeId = event.path.find(e => e.id).id;
@@ -202,8 +176,6 @@ function generateIngredients(recipe) {
     return `${ingredientNames[index]} (${ing.quantity.amount} ${ing.quantity.unit})`
   }).join(', ');
 }
-
-// SEARCH RECIPES
 
 function searchRecipes(event) {
   event.preventDefault();
@@ -224,7 +196,6 @@ function filterNonSearched(filtered) {
   hideUnselectedRecipes(found);
 }
 
-// CREATE AND USE PANTRY
 function findPantryInfo() {
   user.pantry.forEach(item => {
     let itemInfo = ingredientData.find(ingredient => {

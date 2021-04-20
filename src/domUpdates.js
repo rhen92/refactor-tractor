@@ -98,8 +98,9 @@ function addRecipeImage(recipe) {
 
 function exitRecipe() {
   while (fullRecipeInfo.firstChild &&
-    fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
-  fullRecipeInfo.style.display = 'none';
+    fullRecipeInfo.removeChild(fullRecipeInfo.firstChild)) {
+    fullRecipeInfo.style.display = 'none';
+  }
   document.getElementById('overlay').remove();
 }
 
