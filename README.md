@@ -63,3 +63,19 @@ npm install
 * App should be fully responsive to all screen sizes
 * Optimize accessibility for UI/UX to as close to 100% as possible
 * Robust happy/sad path testing suite
+
+## Road Map
+##### Future Iterations Should Include:
+
+* A user log in
+* A video of how to/we navigate through the app via keyboard and screen reader
+* Animation for better UI/UX
+* Pantry should be more screen responsive
+* Use of class inheritance for *DRY*
+
+
+## Deployed Site
+
+[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
+
+If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
